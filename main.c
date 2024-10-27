@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+//hALO
 struct sucursales {
     char *nombre;
     char *apellidos;
