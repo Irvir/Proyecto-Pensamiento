@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//hALO
+//h
 struct sucursales {
     char nombre[50];
     char apellidos[50];
