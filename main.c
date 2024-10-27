@@ -33,55 +33,41 @@ void encontrar_cuenta(struct sucursales s1[],struct sucursales s2[],struct sucur
     struct sucursales s4[],struct sucursales s5[], int opcion,char *nombre,char *apellidos,
     int rut,int *resultado_final,int iterador){
 
-    FILE *archivo;
-    char nombre_archivo[50];
+    iterador = 0;
+    int bandera = 0;
+    *resultado_final = 1; // Inicialmente asumimos que no se encuentra la cuenta
 
-    switch(opcion) {
-        case 1:
-            strcpy(nombre_archivo,"Sucursal 1.txt");
+    while (iterador < 100 && bandera == 0) {
+        if (s1[iterador].rut == rut && strcmp(s1[iterador].apellidos,apellidos) == 0 && strcmp(s1[iterador].nombre,nombre) == 0) {
+            *resultado_final = 0; // Cuenta encontrada
+            bandera = 1;
             break;
-        case 2:
-            strcpy(nombre_archivo,"Sucursal 2.txt");
-            break;
-        case 3:
-            strcpy(nombre_archivo,"Sucursal 3.txt");
-            break;
-        case 4:
-            strcpy(nombre_archivo,"Sucursal 4.txt");
-            break;
-        case 5:
-            strcpy(nombre_archivo,"Sucursal 5.txt");
-            break;
-        default:
-            return;
-    }
-
-    char encontrar_nombre[50];
-    char encontrar_apellidos[50];
-    int encontrar_rut;
-    *resultado_final=1;
-    archivo = fopen(nombre_archivo,"r");
-    if(archivo == NULL) {
-        *resultado_final=1;
-        fclose(archivo);
-    }
-    else {
-        while(iterador<100 && s1[iterador].rut!=rut) {
-            iterador++;
         }
-        strcpy(s1[iterador].nombre,*nombre);
-        strcpy(s1[iterador].rut,rut);
-        strcpy(s1[iterador].apellidos,*apellidos);
-        fclose(archivo);
-
+        iterador++;
     }
-
 }
+
+
 void registrar_cuenta_sucursal(struct sucursales s1[], struct sucursales s2[], struct sucursales s3[], struct sucursales s4[],
     struct sucursales s5[], int sucursal,char *nombre,char *apellidos,int rut) {
+
+
     FILE *archivo;
+    int iterador=0;
+    int bandera=0;
     switch(sucursal) {
         case 1:
+            //Estructura
+            while(iterador<100  && bandera==0) {
+                if(s1[iterador].rut==0) {
+                    strcpy(s1[iterador].nombre,nombre);
+                    strcpy(s1[iterador].apellidos,apellidos);
+                    s1[iterador].rut=rut;
+                    bandera=1;
+                }
+                iterador++;
+            }
+            //Archivo
             archivo = fopen("Sucursal 1.txt","a+");
             fprintf(archivo,"Nombre: %s Apellidos: %s RUT: %i\n",nombre,apellidos,rut);
             fclose(archivo);
@@ -130,7 +116,7 @@ void menu(int opcion) {
                     nombre[strcspn(nombre,"\n")]='\0';
 
 
-                    printf("\nEscriba sus apellidos:");
+                    printf("Escriba sus apellidos:");
                     fgets(apellidos,50,stdin);
                     apellidos[strcspn(apellidos,"\n")]='\0';
 

@@ -1,3 +1,7 @@
-
-martin d 1
-juan d 2301
+Nombre: m Apellidos: a RUT: 1
+Nombre: m Apellidos: a RUT: 1
+Nombre: m Apellidos: a RUT: 1
+Nombre: m Apellidos: a RUT: 1
+Nombre: m Apellidos: a RUT: 1
+Nombre: m Apellidos: a RUT: 1
+Nombre: m Apellidos: a RUT: 1
