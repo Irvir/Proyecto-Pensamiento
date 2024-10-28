@@ -9,7 +9,10 @@ struct sucursales {
     int saldo;
     int interes;
 };
+struct corriente{
+  int saldo;
 
+};
 void encontrar_cuenta(char *nombre, char *apellidos,int rut,int *encontrado) {
     FILE *archivo;
     archivo=fopen("Sucursal 1.txt","r");
