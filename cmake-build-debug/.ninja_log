@@ -1,14 +1,11 @@
 # ninja log v6
-4	79	7517739422605473	CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj	9eb025b82ff2390b
-80	156	7517807265085474	Proyecto_Pensamiento.exe	a14485bb2dbca155
-2	298	7517816443960064	build.ninja	f1917f3c43ab5358
+51	348	7517850799823804	CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj	9eb025b82ff2390b
+349	574	7517850802794809	Proyecto_Pensamiento.exe	80c8e679275d79ac
+2	564	7518559664713267	build.ninja	f1917f3c43ab5358
 3	80	7517807264319844	CMakeFiles/Proyecto_Pensamiento.dir/Funcion_encontrar_y_registrar.c.obj	5850b14dbb9b51e5
-2	564	7517816443960064	build.ninja	f1917f3c43ab5358
-3	77	7517818657751484	CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj	9eb025b82ff2390b
-77	158	7517818658480771	Proyecto_Pensamiento.exe	80c8e679275d79ac
-3	80	7517820328555572	CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj	9eb025b82ff2390b
-81	166	7517820329341443	Proyecto_Pensamiento.exe	80c8e679275d79ac
-4	85	7517820688033834	CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj	9eb025b82ff2390b
-86	171	7517820688844109	Proyecto_Pensamiento.exe	80c8e679275d79ac
-5	88	7517822133188713	CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj	9eb025b82ff2390b
-88	171	7517822134028401	Proyecto_Pensamiento.exe	80c8e679275d79ac
+4	109	7518567565919234	CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj	9eb025b82ff2390b
+109	228	7518567566965171	Proyecto_Pensamiento.exe	80c8e679275d79ac
+64	159	7518570628574538	CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj	9eb025b82ff2390b
+160	404	7518570629539751	Proyecto_Pensamiento.exe	80c8e679275d79ac
+4	85	7518573973315422	CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj	9eb025b82ff2390b
+85	164	7518573974129045	Proyecto_Pensamiento.exe	80c8e679275d79ac

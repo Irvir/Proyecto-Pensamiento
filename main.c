@@ -40,6 +40,7 @@ void encontrar_cuenta(char *nombre, char *apellidos,int rut,int sucursal,int *en
     if(archivo==NULL) {
         archivo=fopen("Sucursal 1.txt","w");
         *encontrado=0;
+        fclose(archivo);
     }
     if(archivo!=NULL) {
         while(fscanf(archivo,"%s %s %s %s %s %i",nombres_,encontrar_nombre,apellidos_,encontrar_apellidos,rut_,&encontrar_rut)==6&&bandera==0&&i<1000) {
@@ -125,18 +126,35 @@ void menu(int opcion) {
                 printf("Bienvenido(a) estimado(a): %s %s (Rut: %i)\n", nombre, apellidos, rut);
             }
             break;
+        case 2:
+            printf("Ingrese su sucursal (1-5): ");
+            scanf("%i", &sucursal);
+
+            getchar();
+            printf("Escriba su nombre: ");
+            fgets(nombre, 50, stdin);
+            nombre[strcspn(nombre, "\n")] = '\0';
+
+            printf("Escriba sus apellidos: ");
+            fgets(apellidos, 50, stdin);
+            apellidos[strcspn(apellidos, "\n")] = '\0';
+
+            printf("Ingrese su Rut (sin puntos ni digito verificador): ");
+            scanf("%i", &rut);
+            encontrar_cuenta(nombre,apellidos,rut,sucursal,&encontrado);
+            if (encontrado == 0) {
+                printf("Estimado(a) %s %s, se ha registrado la cuenta en la sucursal: %i.\n", nombre, apellidos, sucursal);
+                registrar_cuenta_sucursal(nombre,apellidos,rut,sucursal);
+            } else {
+                printf("Error! Estimado(a): %s %s (Rut: %i), su cuenta ya está registrada\n", nombre, apellidos, rut);
+            }
+            break;
 
     }
 
 }
 
 int main(void) {
-    struct sucursales s1[100] = {0};
-    struct sucursales s2[100] = {0};
-    struct sucursales s3[100] = {0};
-    struct sucursales s4[100] = {0};
-    struct sucursales s5[100] = {0};
-
     menu(0);
     return 0;
 }
