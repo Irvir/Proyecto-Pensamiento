@@ -1,7 +1,3 @@
-Nombre: m Apellidos: a RUT: 1
-Nombre: m Apellidos: a RUT: 1
-Nombre: m Apellidos: a RUT: 1
-Nombre: m Apellidos: a RUT: 1
-Nombre: m Apellidos: a RUT: 1
-Nombre: m Apellidos: a RUT: 1
-Nombre: m Apellidos: a RUT: 1
+Nombre: Juan Apellidos: Pepe Rut: 20
+Martin Droguett 10
+
