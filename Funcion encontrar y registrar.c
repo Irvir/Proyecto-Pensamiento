@@ -16,8 +16,13 @@ void encontrar_cuenta(char *nombre, char *apellidos,int rut,int *encontrado) {
     char encontrar_nombre[50],encontrar_apellidos[50];
     int encontrar_rut=rut;
     *encontrado=0;
+    char nombres_[]="Nombre:";
+    char apellidos_[]="Apellidos:";
+    char rut_[]="Rut:";
+
+
     if(archivo!=NULL) {
-        while(fscanf(archivo,"%s %s %i",encontrar_nombre,encontrar_apellidos,&encontrar_rut)&&*encontrado==0) {
+        while(fscanf(archivo,"%s %s %s %s %s %i",nombres_,encontrar_nombre,apellidos_,encontrar_apellidos,rut_,&encontrar_rut)&&*encontrado==0) {
             if(strcmp(encontrar_nombre,nombre)==0 && strcmp(encontrar_apellidos,apellidos)==0 &&encontrar_rut==rut) {
                 printf("Existe");
                 *encontrado=1;
