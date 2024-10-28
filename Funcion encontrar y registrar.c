@@ -19,13 +19,15 @@ void encontrar_cuenta(char *nombre, char *apellidos,int rut,int *encontrado) {
     char nombres_[]="Nombre:";
     char apellidos_[]="Apellidos:";
     char rut_[]="Rut:";
-
-
+    int bandera=0;
+    int i=0;
     if(archivo!=NULL) {
-        while(fscanf(archivo,"%s %s %s %s %s %i",nombres_,encontrar_nombre,apellidos_,encontrar_apellidos,rut_,&encontrar_rut)&&*encontrado==0) {
+        while(fscanf(archivo,"%s %s %s %s %s %i",nombres_,encontrar_nombre,apellidos_,encontrar_apellidos,rut_,&encontrar_rut)==6&&bandera==0&&i<1000) {
             if(strcmp(encontrar_nombre,nombre)==0 && strcmp(encontrar_apellidos,apellidos)==0 &&encontrar_rut==rut) {
                 printf("Existe");
                 *encontrado=1;
+                bandera=1;
+                break;
             }
         }
 
@@ -33,22 +35,30 @@ void encontrar_cuenta(char *nombre, char *apellidos,int rut,int *encontrado) {
     fclose(archivo);
 }
 void registrar_cuenta(char *nombre,char *apellidos,int rut) {
-
+    FILE *archivo;
+    printf("a");
+    archivo=fopen("Sucursal 1.txt","a+");
+    char nombres_[]="Nombre:";
+    char apellidos_[]="Apellidos:";
+    char rut_[]="Rut:";
+    fprintf(archivo,"%s %s %s %s %s %i\n",nombres_,nombre,apellidos_,apellidos,rut_,rut);
+    fclose(archivo);
 }
 int main() {
     int resultado_final;
-    struct sucursales s1[100] = {0}; // Inicializar el arreglo de sucursales
-    char nombre[50] = "Martin", apellidos[50] = "Droguett";
+    char nombre[50] = "Marti", apellidos[50] = "Droguett";
     int rut = 10;
     int encontrado;
     encontrar_cuenta(nombre,apellidos,rut,&encontrado);
 
     if(encontrado==1) {
         printf("existe");
-        free(encontrado);
-    }else {
+
+    }
+    if(encontrado==0) {
         printf("no existe lol");
-        free(encontrado);
+        registrar_cuenta(nombre,apellidos,rut);
+
     }
 
     return 0;

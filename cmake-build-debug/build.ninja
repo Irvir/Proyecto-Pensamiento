@@ -49,8 +49,8 @@ cmake_ninja_workdir = C$:/Users/marti/CLionProjects/Proyecto$ Pensamiento/cmake-
 
 build cmake_object_order_depends_target_Proyecto_Pensamiento: phony || .
 
-build CMakeFiles/Proyecto_Pensamiento.dir/Funcion_encontrar_y_registrar.c.obj: C_COMPILER__Proyecto_Pensamiento_unscanned_Debug C$:/Users/marti/CLionProjects/Proyecto$ Pensamiento/Funcion$ encontrar$ y$ registrar.c || cmake_object_order_depends_target_Proyecto_Pensamiento
-  DEP_FILE = CMakeFiles\Proyecto_Pensamiento.dir\Funcion_encontrar_y_registrar.c.obj.d
+build CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj: C_COMPILER__Proyecto_Pensamiento_unscanned_Debug C$:/Users/marti/CLionProjects/Proyecto$ Pensamiento/main.c || cmake_object_order_depends_target_Proyecto_Pensamiento
+  DEP_FILE = CMakeFiles\Proyecto_Pensamiento.dir\main.c.obj.d
   FLAGS = -g -std=gnu99 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\Proyecto_Pensamiento.dir
   OBJECT_FILE_DIR = CMakeFiles\Proyecto_Pensamiento.dir
@@ -63,7 +63,7 @@ build CMakeFiles/Proyecto_Pensamiento.dir/Funcion_encontrar_y_registrar.c.obj: C
 #############################################
 # Link the executable Proyecto_Pensamiento.exe
 
-build Proyecto_Pensamiento.exe: C_EXECUTABLE_LINKER__Proyecto_Pensamiento_Debug CMakeFiles/Proyecto_Pensamiento.dir/Funcion_encontrar_y_registrar.c.obj
+build Proyecto_Pensamiento.exe: C_EXECUTABLE_LINKER__Proyecto_Pensamiento_Debug CMakeFiles/Proyecto_Pensamiento.dir/main.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Proyecto_Pensamiento.dir

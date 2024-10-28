@@ -1,3 +1,5 @@
+
 Nombre: Juan Apellidos: Pepe Rut: 20
 Nombre: Martin Apellidos: Droguett Rut: 10
-
+Nombre: Marti Apellidos: Droguett Rut: 10
+Nombre: Martin Apellidos: Droguett Rut: 10
