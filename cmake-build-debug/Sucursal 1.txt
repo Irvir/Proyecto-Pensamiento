@@ -3,3 +3,8 @@ Nombre: emma Apellidos: d Rut: 101010101
 Nombre: ma Apellidos: sjsj Rut: 0
 Nombre: ma Apellidos: sksk Rut: 10
 Nombre: owo Apellidos: uwu Rut: 23012006
+Nombre: owo Apellidos: uwu Rut: 2023
+Nombre: owo Apellidos: zu Rut: 23012006
+Nombre: uwu Apellidos: zu Rut: 23012006
+Nombre: iwi Apellidos: zu Rut: 23012006
+Nombre: owozu Apellidos: pepe Rut: 230128
