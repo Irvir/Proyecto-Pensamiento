@@ -1,2 +1,5 @@
 Nombre: m Apellidos: a Rut: 2
 Nombre: emma Apellidos: d Rut: 101010101
+Nombre: ma Apellidos: sjsj Rut: 0
+Nombre: ma Apellidos: sksk Rut: 10
+Nombre: owo Apellidos: uwu Rut: 23012006

@@ -27,21 +27,8 @@ void menu(int opcion) {
     scanf("%i", &opcion);
     switch (opcion) {
         case 1:
-            printf("Ingrese su sucursal (1-5): ");
-            scanf("%i", &sucursal);
-
-            getchar();
-            printf("Escriba su nombre: ");
-            fgets(nombre, 50, stdin);
-            nombre[strcspn(nombre, "\n")] = '\0';
-
-            printf("Escriba sus apellidos: ");
-            fgets(apellidos, 50, stdin);
-            apellidos[strcspn(apellidos, "\n")] = '\0';
-
-            printf("Ingrese su Rut (sin puntos ni digito verificador): ");
-            scanf("%i", &rut);
-            encontrar_cuenta(nombre,apellidos,rut,sucursal,&encontrado);
+            datos(encontrado,sucursal,nombre,apellidos,&rut);
+            encontrar_cuenta(nombre,apellidos,&rut,sucursal,&encontrado);
             if (encontrado == 0) {
                 printf("Estimado(a) %s %s, no se encuentra registrado en la sucursal %i.\nDesea crear una cuenta? (1.Si / 2.No): ", nombre, apellidos, sucursal);
                 scanf("%i", &decision_crear_cuenta);
