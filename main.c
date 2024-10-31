@@ -54,7 +54,7 @@ int main(void) {
     Ahorro ahorro[1000]={0};
     Vista vista[100]={0};
 
-
+    //a
     menu(0);
 
     return 0;
