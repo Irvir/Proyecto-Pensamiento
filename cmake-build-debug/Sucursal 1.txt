@@ -9,3 +9,7 @@ Nombre: m Apellidos: e Rut: 2
 Nombre: m Apellidos: 3 Rut: 2
 Nombre: m Apellidos: 4 Rut: 1
 Nombre: m Apellidos: 5 Rut: 1
+Nombre:  Apellidos: r Rut: 1
+Nombre: 1 Apellidos: 1 Rut: 1
+Nombre: 2 Apellidos: 2 Rut: 2
+Nombre: ke Apellidos: ke Rut: 2

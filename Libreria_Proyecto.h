@@ -15,6 +15,13 @@ typedef struct cuenta_corriente {
     float interes;
     float comision_mensual;
 }Corriente;
+//Lista de Estructuras
+Corriente corriente_s1[1000]={0};
+Corriente corriente_s2[1000]={0};
+Corriente corriente_s3[1000]={0};
+Corriente corriente_s4[1000]={0};
+Corriente corriente_s5[1000]={0};
+
 
 //Cuenta Ahorro
 typedef struct cuenta_ahorro {
@@ -32,12 +39,7 @@ typedef struct cuenta_vista {
 
 void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal) {
     FILE *archivo;
-    Corriente corriente_s1[1000]={0};
-    Corriente corriente_s2[1000]={0};
-    Corriente corriente_s3[1000]={0};
-    Corriente corriente_s4[1000]={0};
-    Corriente corriente_s5[1000]={0};
-
+    Corriente *corriente;
     char nombre_imprimir[50]="Nombre:";
     char apellido_imprimir[50]="Apellido";
     char rut_imprimir[50]="Rut:";
@@ -45,10 +47,26 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
     char nombre_encontrar[50],apellidos_encontrar[50];
     int rut_encontrar;
 
-    Corriente corriente;
-
     int decision_crear_cuenta;
 
+    switch (*sucursal) {
+        case 1:
+            corriente = corriente_s1;
+            break;
+        case 2:
+            corriente = corriente_s2;
+            break;
+        case 3:
+            corriente = corriente_s3;
+            break;
+        case 4:
+            corriente = corriente_s4;
+            break;
+        case 5:
+            corriente = corriente_s5;
+        break;
+
+    }
 
     //Se encuentra la cuenta dentro del archivo
     if(*encontrado==1) {
@@ -86,11 +104,12 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
         bandera=0;
 
         fclose(archivo);
+        //NO ENCONTRADO PERO SI EXISTE EL ARCHIVO
         if(bandera==0) {
             printf("¿No se encuentra en su cuenta Corriente en la sucursal %i, desea agregar?\n(1.Si/2.No)",*sucursal);
             scanf("%i",&decision_crear_cuenta);
             if(decision_crear_cuenta==1) {
-                fprintf(archivo,"%s %s %s %s %s %i %s %i",nombre_imprimir,nombre,apellido_imprimir,apellidos,rut_imprimir,rut,saldo_imprimir,corriente.saldo);
+                fprintf(archivo,"%s %s %s %s %s %i %s %i",nombre_imprimir,nombre,apellido_imprimir,apellidos,rut_imprimir,rut,saldo_imprimir,corriente[0].saldo);
                 printf("Creado");
             }
 
@@ -119,9 +138,8 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
                 break;
         }
             printf("Digite su saldo");
-            scanf("%i",corriente.saldo);
-            printf("\n---------");
-            fprintf(archivo,"%s %s %s %s %s %i %s %i",nombre_imprimir,nombre,apellido_imprimir,apellidos,rut_imprimir,rut,saldo_imprimir,corriente.saldo);
+            scanf("%i",&(corriente_s1[0].saldo));
+            fprintf(archivo,"%s %s %s %s %s %i %s %i",nombre_imprimir,nombre,apellido_imprimir,apellidos,rut_imprimir,*rut,saldo_imprimir,corriente_s1[0].saldo);
             printf("Existe corriente");
             fclose(archivo);
 
