@@ -1,0 +1,2 @@
+Nombre: m Apellidos: a Rut: 2
+Nombre: m Apellidos: e Rut: 1

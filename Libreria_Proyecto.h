@@ -32,7 +32,12 @@ typedef struct cuenta_vista {
 
 void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal) {
     FILE *archivo;
-    printf("llegue a corriente");
+    Corriente corriente_s1[1000]={0};
+    Corriente corriente_s2[1000]={0};
+    Corriente corriente_s3[1000]={0};
+    Corriente corriente_s4[1000]={0};
+    Corriente corriente_s5[1000]={0};
+
     char nombre_imprimir[50]="Nombre:";
     char apellido_imprimir[50]="Apellido";
     char rut_imprimir[50]="Rut:";
@@ -44,26 +49,28 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
 
     int decision_crear_cuenta;
 
+
     //Se encuentra la cuenta dentro del archivo
     if(*encontrado==1) {
         switch (*sucursal) {
+            printf("111");
             case 1:
-                archivo=fopen("Sucursal 1.txt","a+");
+                archivo=fopen("Corriente 1.txt","a+");
 
                 break;
             case 2:
-                archivo=fopen("Sucursal 2.txt","a+");
+                archivo=fopen("Corriente 2.txt","a+");
 
                 break;
             case 3:
-                archivo=fopen("Sucursal 3.txt","a+");
+                archivo=fopen("Corriente 3.txt","a+");
                 break;
             case 4:
-                archivo=fopen("Sucursal 4.txt","a+");
+                archivo=fopen("Corriente 4.txt","a+");
 
                 break;
             case 5:
-                archivo=fopen("Sucursal 5.txt","a+");
+                archivo=fopen("Corriente 5.txt","a+");
                 break;
 
         }
@@ -91,29 +98,29 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
     }
     //Cuando No se encuentra el archivo
     if(*encontrado==0) {
-        if(archivo==NULL) {
-            switch (*sucursal) {
-                case 1:
-                    archivo=fopen("Corriente 1.txt","w");
+        switch (*sucursal) {
+            case 1:
+                archivo=fopen("Corriente 1.txt","w");
                 break;
-                case 2:
-                    archivo=fopen("Corriente 2.txt","w");
+            case 2:
+                archivo=fopen("Corriente 2.txt","w");
                 break;
 
-                case 3:
-                    archivo=fopen("Corriente 3.txt","w");
+            case 3:
+                archivo=fopen("Corriente 3.txt","w");
 
                 break;
-                case 4:
-                    archivo=fopen("Corriente 4.txt","w");
+            case 4:
+                archivo=fopen("Corriente 4.txt","w");
 
                 break;
-                case 5:
-                    archivo=fopen("Corriente 5.txt","w");
+            case 5:
+                archivo=fopen("Corriente 5.txt","w");
                 break;
         }
             printf("Digite su saldo");
             scanf("%i",corriente.saldo);
+            printf("\n---------");
             fprintf(archivo,"%s %s %s %s %s %i %s %i",nombre_imprimir,nombre,apellido_imprimir,apellidos,rut_imprimir,rut,saldo_imprimir,corriente.saldo);
             printf("Existe corriente");
             fclose(archivo);
@@ -122,7 +129,7 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
     }
     }
 
-}
+
 void crear_archivo_a(int *tipo_de_cuenta,int *sucursal, FILE *archivo) {
     //Tomo como 1: Corriente, 2: Ahorro, Vista
     switch (*tipo_de_cuenta) {
@@ -318,13 +325,14 @@ void datos(int *encontrado,int *sucursal,char *nombre, char *apellidos,int  *rut
     encontrar_cuenta(nombre,apellidos,rut,sucursal,&encontrado);
 }
 void ver_cuentas(int *opcion,char *nombres,char *apellidos,int *encontrado,int *rut, int *sucursal) {
-    printf("1. Ver Cuenta Corriente\n2. Ver Cuenta Ahorro\n3. Ver Cuenta Vista\nOpcion: ");
 
+    printf("1. Ver Cuenta Corriente\n2. Ver Cuenta Ahorro\n3. Ver Cuenta Vista\nOpcion: ");
     scanf("%i",opcion);
-    printf("por %i",*opcion);
+
+
     switch (*opcion) {
         case 1:
-            printf("------\n");
+
             registrar_corriente(nombres,apellidos,rut,encontrado,sucursal);
             printf("------\n");
 

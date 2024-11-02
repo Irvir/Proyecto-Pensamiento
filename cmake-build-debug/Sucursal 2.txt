@@ -1,1 +1,3 @@
 Nombre: Ma Apellidos: rt Rut: 2301
+Nombre: m Apellidos: a Rut: 2
+Nombre: 1 Apellidos: 1 Rut: 1
