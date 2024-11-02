@@ -319,7 +319,7 @@ void datos(int *encontrado,int *sucursal,char *nombre, char *apellidos,int  *rut
 }
 void ver_cuentas(int *opcion,char *nombres,char *apellidos,int *encontrado,int *rut, int *sucursal) {
     printf("1. Ver Cuenta Corriente\n2. Ver Cuenta Ahorro\n3. Ver Cuenta Vista\nOpcion: ");
-    printf("------------");
+
     scanf("%i",opcion);
     printf("por %i",*opcion);
     switch (*opcion) {
