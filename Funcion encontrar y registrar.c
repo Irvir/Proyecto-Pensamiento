@@ -212,7 +212,6 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
                 break;
             case 5:
                 archivo=fopen("Sucursal 5.txt","a+");
-
                 break;
 
         }
@@ -225,23 +224,34 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
                 bandera=1;
             }
         }
-        *encontrado=0;
+        bandera=0;
         fclose(archivo);
     }
     //Cuando No se encuentra
-
     if(*encontrado==0) {
         if(archivo==NULL) {
-            archivo=fopen;
+            switch (*sucursal) {
+                case 1:
+                    archivo=fopen("Corriente 1.txt","w");
+                break;
+                case 2:
+                    archivo=fopen("Corriente 2.txt","w");
+                break;
+
+                case 3:
+                    archivo=fopen("Corriente 3.txt","w");
+
+                break;
+                case 4:
+                    archivo=fopen("Corriente 4.txt","w");
+
+                break;
+                case 5:
+                    archivo=fopen("Corriente 5.txt","w");
+                break;
         }
-        switch (*sucursal) {
-        case 1:
-            fprintf(archivo,"%s %s %s %s %s %i",nombre_imprimir,nombre,apellido_imprimir,apellidos,rut_imprimir,rut);
-            break;
-        case 2:break;
-        case 3:break;
-        case 4:break;
-        case 5:break;
+
+            fclose(archivo);
 
     }
     }

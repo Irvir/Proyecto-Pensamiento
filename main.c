@@ -10,6 +10,7 @@ void menu(int opcion) {
     char nombre[50];
     char apellidos[50];
     int rut;
+
     int decision_crear_cuenta;
     int encontrado;
 
@@ -25,12 +26,13 @@ void menu(int opcion) {
                 scanf("%i", &decision_crear_cuenta);
 
                 if (decision_crear_cuenta == 1) {
-                    registrar_cuenta_sucursal(nombre,apellidos,rut,&sucursal);
-                    ver_cuentas(decision_ver_cuenta);
+                    registrar_cuenta_sucursal(nombre,apellidos,&rut,&sucursal);
+                    ver_cuentas(&decision_ver_cuenta,nombre,apellidos,encontrado,&rut,&sucursal);
                 }
             } else {
-                printf("Bienvenido(a) estimado(a): %s %s (Rut: %i)\n", nombre, apellidos, rut);
-                ver_cuentas(decision_ver_cuenta);
+                printf("Bienvenido(a)\n Estimado(a): %s %s (Rut: %i)\n", nombre, apellidos, rut);
+                ver_cuentas(&decision_ver_cuenta,nombre,apellidos,encontrado,&rut,&sucursal);
+
 
             }
             break;
