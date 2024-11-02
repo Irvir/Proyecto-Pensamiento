@@ -169,7 +169,11 @@ void crear_archivo_a(int *tipo_de_cuenta,int *sucursal, FILE *archivo) {
 
     }
 }
-void crear_sucursal(int *sucursal, FILE *archivo) {
+
+
+void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *encontrado) {
+    FILE *archivo;
+
     switch (*sucursal) {
         case 1:
             archivo = fopen("Sucursal 1.txt","r");
@@ -212,33 +216,8 @@ void crear_sucursal(int *sucursal, FILE *archivo) {
         }
         break;
     }
-}
-void crear_sucursal_a(int *sucursal,FILE *archivo) {
-    switch (*sucursal) {
-        case 1:
-            archivo=fopen("Sucursal 1.txt","a+");
-        break;
-        case 2:
-            archivo=fopen("Sucursal 2.txt","a+");
-        break;
-        case 3:
-            archivo=fopen("Sucursal 3.txt","a+");
-
-        break;
-        case 4:
-            archivo=fopen("Sucursal 4.txt","a+");
-        break;
-        case 5:
-            archivo=fopen("Sucursal 5.txt","a+");
-        break;
-
-    }
-
-}
-void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *encontrado) {
-    FILE *archivo;
-    crear_sucursal(sucursal,archivo);
     char encontrar_nombre[50],encontrar_apellidos[50];
+    printf("llegue");
     int encontrar_rut=*rut;
     *encontrado=0;
     char nombres_[]="Nombre:";
@@ -260,12 +239,31 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
         }
 
     }
+    printf("llegue aqui tambien");
     fclose(archivo);
 }
 
 void registrar_cuenta_sucursal(char *nombre, char *apellidos, int rut,int *sucursal) {
     FILE *archivo;
-    crear_sucursal_a(sucursal,archivo);
+    switch (*sucursal) {
+        case 1:
+            archivo=fopen("Sucursal 1.txt","a+");
+        break;
+        case 2:
+            archivo=fopen("Sucursal 2.txt","a+");
+        break;
+        case 3:
+            archivo=fopen("Sucursal 3.txt","a+");
+
+        break;
+        case 4:
+            archivo=fopen("Sucursal 4.txt","a+");
+        break;
+        case 5:
+            archivo=fopen("Sucursal 5.txt","a+");
+        break;
+
+    }
 
     char nombres_[]="Nombre:";
     char apellidos_[]="Apellidos:";
