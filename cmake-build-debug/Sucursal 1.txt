@@ -8,3 +8,4 @@ Nombre: owo Apellidos: zu Rut: 23012006
 Nombre: uwu Apellidos: zu Rut: 23012006
 Nombre: iwi Apellidos: zu Rut: 23012006
 Nombre: owozu Apellidos: pepe Rut: 230128
+Nombre: Marti Apellidos: Droguett Rut: 10

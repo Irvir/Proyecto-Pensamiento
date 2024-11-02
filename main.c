@@ -50,9 +50,7 @@ void menu(int opcion) {
 }
 
 int main(void) {
-    Corriente corriente[1000]={0};
-    Ahorro ahorro[1000]={0};
-    Vista vista[100]={0};
+
 
     //a
     menu(0);

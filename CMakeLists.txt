@@ -5,6 +5,7 @@ set(CMAKE_C_STANDARD 99)
 #main.c
 #"Funcion encontrar y registrar.c"
 add_executable(Proyecto_Pensamiento
-        main.c
+        "Funcion encontrar y registrar.c"
         Libreria_Proyecto.h
+        "Funcion encontrar y registrar.c"
 )
