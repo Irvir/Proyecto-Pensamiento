@@ -1,1 +1,1 @@
-Nombre: ke Apellido ke Rut: 2 Saldo: 303030
+Nombre: ma Apellido 2 Rut: 1 Saldo: 2147483647

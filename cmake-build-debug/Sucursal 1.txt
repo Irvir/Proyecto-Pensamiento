@@ -13,3 +13,8 @@ Nombre:  Apellidos: r Rut: 1
 Nombre: 1 Apellidos: 1 Rut: 1
 Nombre: 2 Apellidos: 2 Rut: 2
 Nombre: ke Apellidos: ke Rut: 2
+Nombre:  Apellidos: a Rut: 2
+Nombre:  Apellidos: a Rut: 1
+Nombre: ma Apellidos: 2 Rut: 1
+Nombre: ma Apellidos: 2 Rut: 1
+Nombre: Marti Apellidos: Droguett Rut: 10

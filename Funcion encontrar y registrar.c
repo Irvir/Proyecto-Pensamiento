@@ -272,25 +272,19 @@ void ver_cuentas(int *encontrado,int opcion,char *nombre,char *apellidos, int *r
 }
 
 int main() {
-    int resultado_final;
-    char nombre[50] = "Marti", apellidos[50] = "Droguett";
-    int rut = 10;
-    int encontrado;
-    int opcion=1;
-    int sucursal=1;
-    int numero_de_encontrado=10;
-    encontrar_cuenta(nombre,apellidos,rut,&encontrado);
-
-    if(encontrado==1) {
-        printf("existe %s %s %i\n",nombre,apellidos,rut);
-        ver_cuentas(&encontrado,opcion,nombre,apellidos,rut,&sucursal);
+    FILE *archivo;
+    archivo=fopen("archivo xd.txt","r");
+    char nombre[50];
+    while(fscanf(archivo,"Hola: %s",nombre)==1) {
+        printf("-\n");
+        if(strcmp(nombre,"xd")==0) {
+            printf("xd");
+        }
+        printf("-\n");
 
     }
-    if(encontrado==0) {
-        printf("no existe lol");
-        registrar_cuenta(nombre,apellidos,rut);
 
-    }
+    fclose(archivo);
 
 
     return 0;
