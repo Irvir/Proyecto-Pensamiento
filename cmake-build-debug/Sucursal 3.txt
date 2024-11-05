@@ -3,3 +3,5 @@ Nombre: bv Apellidos: cd Rut: 2301
 Nombre: lsls Apellidos: q Rut: 1
 Nombre: m Apellidos: a Rut: 2
 Nombre: m Apellidos: e Rut: 3
+Nombre: m Apellidos: e Rut: 1
+Nombre: m Apellidos: r Rut: 4

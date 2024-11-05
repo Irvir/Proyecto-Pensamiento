@@ -1,1 +1,1 @@
-Nombre: ma Apellido 2 Rut: 1 Saldo: 2147483647
+Nombre: k Apellido: e Rut: 20 Saldo: 450

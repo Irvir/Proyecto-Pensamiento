@@ -18,3 +18,6 @@ Nombre:  Apellidos: a Rut: 1
 Nombre: ma Apellidos: 2 Rut: 1
 Nombre: ma Apellidos: 2 Rut: 1
 Nombre: Marti Apellidos: Droguett Rut: 10
+Nombre: 1 Apellidos: m Rut: 0
+Nombre:  Apellidos: e Rut: 1
+Nombre: k Apellidos: e Rut: 20

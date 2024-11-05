@@ -1,0 +1,1 @@
+Nombre: m Apellido: r Rut: 4 Saldo: 0
