@@ -81,7 +81,7 @@ typedef struct sucursales {
 
 
 //------------------------REGISTRAR CUENTA CORRIENTE----------
-void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal) {
+void registrar_corriente(Lista *l,char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal) {
     FILE *archivo;
     char nombre_encontrar[50],apellidos_encontrar[50];
     int rut_encontrar;
@@ -298,7 +298,7 @@ void datos(int *encontrado,int *sucursal,char *nombre, char *apellidos,int  *rut
 }
 //------------------------VER TODAS LAS CUENTAS----------
 
-void ver_cuentas(int *opcion,char *nombres,char *apellidos,int *encontrado,int *rut, int *sucursal) {
+void ver_cuentas(Lista *lista_corriente,int *opcion,char *nombres,char *apellidos,int *encontrado,int *rut, int *sucursal) {
 
     printf("1. Ver Cuenta Corriente\n2. Ver Cuenta Ahorro\n3. Ver Cuenta Vista\nOpcion: ");
     scanf("%i",opcion);
@@ -307,7 +307,7 @@ void ver_cuentas(int *opcion,char *nombres,char *apellidos,int *encontrado,int *
     switch (*opcion) {
         case 1:
 
-            registrar_corriente(nombres,apellidos,rut,encontrado,sucursal );
+            registrar_corriente(lista_corriente,nombres,apellidos,rut,encontrado,sucursal );
             printf("------\n");
 
             break;
