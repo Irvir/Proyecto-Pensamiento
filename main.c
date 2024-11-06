@@ -5,7 +5,7 @@
 
 
 
-void menu(int opcion) {
+void menu(int opcion, Lista *corriente) {
     int sucursal;
     char nombre[50];
     char apellidos[50];
@@ -19,7 +19,7 @@ void menu(int opcion) {
     scanf("%i", &opcion);
     switch (opcion) {
         case 1:
-            datos(encontrado,&sucursal,nombre,apellidos,&rut);
+            datos(&encontrado,&sucursal,nombre,apellidos,&rut);
             encontrar_cuenta(nombre,apellidos,&rut,&sucursal,&encontrado);
             if (encontrado == 0) {
                 printf("Estimado(a) %s %s, no se encuentra registrado en la sucursal %i.\nDesea crear una cuenta? (1.Si / 2.No): ", nombre, apellidos, sucursal);
@@ -32,7 +32,6 @@ void menu(int opcion) {
             } else {
                 printf("Bienvenido(a)\n Estimado(a): %s %s (Rut: %i)\n", nombre, apellidos, rut);
                 ver_cuentas(&decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal);
-
 
             }
             break;
@@ -49,13 +48,12 @@ void menu(int opcion) {
 
     }
 
+
 }
 
 int main(void) {
-
-
-    //a
-    menu(0);
+    Lista cuenta_corriente=crearLista_Corriente();
+    menu(0,cuenta_corriente);
 
     return 0;
 }

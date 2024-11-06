@@ -1,1 +1,6 @@
-Nombre: k Apellido: e Rut: 20 Saldo: 450
+Nombre: m Apellidos: a Rut: 1 Saldo: 30 
+Nombre: m Apellidos: e Rut: 1 Saldo: 90 
+Nombre: Josefina Apellidos: Palmera Rut: 1 Saldo: 300 
+Nombre: me Apellidos: t Rut: 1 Saldo: 30 
+Nombre: Sofia Apellidos: Salas Rut: 3 Saldo: 3000 
+Nombre: 1 Apellidos: 1 Rut: 1 Saldo: 1 

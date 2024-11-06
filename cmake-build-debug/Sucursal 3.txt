@@ -5,3 +5,17 @@ Nombre: m Apellidos: a Rut: 2
 Nombre: m Apellidos: e Rut: 3
 Nombre: m Apellidos: e Rut: 1
 Nombre: m Apellidos: r Rut: 4
+Nombre: m Apellidos: y Rut: 4
+Nombre: m Apellidos: t Rut: 5
+Nombre: m Apellidos: o Rut: 3
+Nombre: r Apellidos: t Rut: 7
+Nombre: Miguel Apellidos: Gonzales Rut: 219374968
+Nombre: m Apellidos: y Rut: 1
+Nombre: r Apellidos: t Rut: 13
+Nombre: d Apellidos: e Rut: 3
+Nombre: i Apellidos: u Rut: 3
+Nombre: u Apellidos: z Rut: 88
+Nombre: mf Apellidos: as Rut: 3
+Nombre: m Apellidos: u Rut: 3
+Nombre: m Apellidos: i Rut: 4
+Nombre: mat Apellidos: ias Rut: 3
