@@ -5,3 +5,4 @@ Nombre: me Apellidos: t Rut: 1
 Nombre: Sofia Apellidos: Salas Rut: 3
 Nombre: 1 Apellidos: 1 Rut: 1
 Nombre: 1 Apellidos: m Rut: 1
+Nombre: m Apellidos: a Rut: 2

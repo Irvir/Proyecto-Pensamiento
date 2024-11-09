@@ -4,3 +4,12 @@ Nombre: Josefina Apellidos: Palmera Rut: 1 Saldo: 300
 Nombre: me Apellidos: t Rut: 1 Saldo: 30 
 Nombre: Sofia Apellidos: Salas Rut: 3 Saldo: 3000 
 Nombre: 1 Apellidos: 1 Rut: 1 Saldo: 1 
+Nombre: Juan Apellidos: Perez Rut: 0 Saldo: 10 
+Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 40 
+Nombre: Juan Apellidos: Perez Rut: 0 Saldo: 300 
+Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 400 
+Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 5999 
+Nombre: Juan Apellidos: Perez Rut: 0 Saldo: 30 
+Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 100 
+Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 9000 
+Nombre: m Apellidos: a Rut: 2 Saldo: 3000 

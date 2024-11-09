@@ -5,7 +5,7 @@
 
 
 
-void menu(int opcion, Lista *corriente) {
+void menu(int opcion) {
     int sucursal;
     char nombre[50];
     char apellidos[50];
@@ -27,11 +27,11 @@ void menu(int opcion, Lista *corriente) {
 
                 if (decision_crear_cuenta == 1) {
                     registrar_cuenta_sucursal(nombre,apellidos,&rut,&sucursal);
-                    ver_cuentas(corriente,&decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal);
+                    ver_cuentas(&decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal);
                 }
             } else {
                 printf("Bienvenido(a)\n Estimado(a): %s %s (Rut: %i)\n", nombre, apellidos, rut);
-                ver_cuentas(corriente,&decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal);
+                ver_cuentas(&decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal);
 
             }
             break;
@@ -52,8 +52,8 @@ void menu(int opcion, Lista *corriente) {
 }
 
 int main(void) {
-    Lista *cuenta_corriente=crearLista_Corriente();
-    menu(0,cuenta_corriente);
+
+    menu(0);
 
     return 0;
 }
