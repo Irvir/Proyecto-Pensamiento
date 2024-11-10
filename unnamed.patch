@@ -1,0 +1,42 @@
+Index: main.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/main.c b/main.c
+--- a/main.c	(revision f1d3c871726539c0c8e7a45eb2062d1d680bff7a)
++++ b/main.c	(revision 804f48e560a5484bbadecafa42278dd156b30002)
+@@ -5,7 +5,7 @@
+ 
+ 
+ 
+-void menu(int opcion, Lista *corriente) {
++void menu(int opcion) {
+     int sucursal;
+     char nombre[50];
+     char apellidos[50];
+@@ -27,11 +27,11 @@
+ 
+                 if (decision_crear_cuenta == 1) {
+                     registrar_cuenta_sucursal(nombre,apellidos,&rut,&sucursal);
+-                    ver_cuentas(corriente,&decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal);
++                    ver_cuentas(&decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal);
+                 }
+             } else {
+                 printf("Bienvenido(a)\n Estimado(a): %s %s (Rut: %i)\n", nombre, apellidos, rut);
+-                ver_cuentas(corriente,&decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal);
++                ver_cuentas(&decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal);
+ 
+             }
+             break;
+@@ -52,8 +52,8 @@
+ }
+ 
+ int main(void) {
+-    Lista *cuenta_corriente=crearLista_Corriente();
+-    menu(0,cuenta_corriente);
++
++    menu(0);
+ 
+     return 0;
+ }

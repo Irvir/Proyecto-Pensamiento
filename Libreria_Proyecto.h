@@ -124,20 +124,22 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
                 break;
 
         }
-        //-----------------------Buscar cuenta dentro de la corriente---------------------
+        //-----------------------BUSCAR CUENTA DENTRO DE LA ESTRUCURA: CORRIENTE---------------------
     if(*encontrado==1) {
-        printf("encontrado ea: %i\n",*encontrado);
-        while (fscanf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i",nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar)==4 && bandera==0) {
-            corriente.saldo=saldo_encontrar;
-            agregar_final_Corriente(l,corriente);
-            if(strcmp(nombre_encontrar,nombre)==0 && strcmp(apellidos_encontrar,apellidos)==0 && rut_encontrar== *rut &&saldo_encontrar==0) {
+        while (fscanf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i\n",nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar)==4 && bandera==0) {
+            if(strcmp(nombre_encontrar,nombre)==0 && strcmp(apellidos_encontrar,apellidos)==0 && rut_encontrar== *rut) {
                 *encontrado=1;
                 printf("Existe en corriente");
                 bandera=1;
             }
-            contador++;
-
             imprimir_lista(l);
+
+            corriente.saldo=saldo_encontrar;
+            contador++;
+            agregar_final_Corriente(l,corriente);
+
+
+
         }
         printf("Se encuentra en %i.\n",contador);
 
@@ -170,6 +172,7 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
         fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,corriente.saldo);
 
     }
+    imprimir_lista(l);
     fclose(archivo);
     }
 

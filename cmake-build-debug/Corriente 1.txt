@@ -13,3 +13,4 @@ Nombre: Juan Apellidos: Perez Rut: 0 Saldo: 30
 Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 100 
 Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 9000 
 Nombre: m Apellidos: a Rut: 2 Saldo: 3000 
+Nombre: m Apellidos: j Rut: 1 Saldo: 1 
