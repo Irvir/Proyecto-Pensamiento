@@ -9,3 +9,4 @@ Nombre: m Apellidos: a Rut: 2
 Nombre: 1 Apellidos: m Rut: 0
 Nombre: m Apellidos: j Rut: 1
 Nombre:  Apellidos: j Rut: 1
+Nombre: m Apellidos: e Rut: 3

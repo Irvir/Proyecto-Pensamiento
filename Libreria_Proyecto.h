@@ -19,20 +19,22 @@ typedef struct cuenta_vista {
     float interes;
     float comision_mensual;
 }Vista;
-//------------------------NODO--------------------
-typedef struct nodo {
+//------------------------NODO:CORRIENTE--------------------
+typedef struct nodo_corriente {
     Corriente corriente;
     struct nodo *siguiente;
-}Nodo;
-typedef struct lista {
-    Nodo *primer_Elemento;
-}Lista;
-//-------------------------IMPRIMIR LISTA ENLAZADA---------------
-void imprimir_lista(Lista *l){
+}Nodo_C;
+//------------------------LISTA:CORRIENTE--------------------
+
+typedef struct lista_c {
+    Nodo_C *primer_Elemento;
+}Lista_c;
+//-------------------------IMPRIMIR LISTA ENLAZADA:CORRIENTE---------------
+void imprimir_lista_c(Lista_c *l){
     if(l->primer_Elemento == NULL){
         printf("--> NULL\n");
     }else{
-        Nodo *aux = l->primer_Elemento;
+        Nodo_C *aux = l->primer_Elemento;
         while(aux != NULL){
             printf("--> %i", aux->corriente.saldo);
             aux = aux->siguiente;
@@ -41,27 +43,130 @@ void imprimir_lista(Lista *l){
         printf("--> NULL\n");
     }
 }
-//-------------------------CREAR LISTA----------------
-Lista *crearLista_Corriente() {
-    Lista *l=(Lista*)malloc(sizeof(Lista)*1);
+//-------------------------CREAR LISTA: CUENTA CORRIENTE----------------
+Lista_c *crearLista_Corriente() {
+    Lista_c *l=(Lista_c*)malloc(sizeof(Lista_c)*1);
     l->primer_Elemento=NULL;
     return l;
 };
 //-------------------------CREAR NODO CORRIENTE-------
-Nodo* crearNodo_Corriente(Corriente c){
-    Nodo *n = (Nodo*)malloc(sizeof(Nodo)*1);
+Nodo_C* crearNodo_Corriente(Corriente c){
+    Nodo_C *n = (Nodo_C*)malloc(sizeof(Nodo_C)*1);
     n->corriente = c;
     n->siguiente = NULL ;
     return n;
 }
-//------------------------AGREGAR AL FINAL----------
-void agregar_final_Corriente(Lista *l, Corriente c) {
+//------------------------AGREGAR AL FINAL: CUENTA CORRIENTE----------
+void agregar_final_Corriente(Lista_c *l, Corriente c) {
 
-    Nodo *nuevoNodo = crearNodo_Corriente(c);
+    Nodo_C *nuevoNodo = crearNodo_Corriente(c);
     if (l->primer_Elemento == NULL) {
         l->primer_Elemento = nuevoNodo;
     } else {
-        Nodo *aux = l->primer_Elemento;
+        Nodo_C *aux = l->primer_Elemento;
+        while (aux->siguiente != NULL) {
+            aux = aux->siguiente;
+        }
+        aux->siguiente = nuevoNodo;
+    }
+}
+//------------------------NODO:AHORRO--------------------
+typedef struct nodo_ahorro {
+    Ahorro ahorro;
+    struct nodo *siguiente;
+}Nodo_A;
+//------------------------LISTA:AHORRO--------------------
+
+typedef struct lista {
+    Nodo_A *primer_Elemento;
+}Lista_a;
+//-------------------------IMPRIMIR LISTA ENLAZADA:AHORRO---------------
+void imprimir_lista_a(Lista_a *l){
+    if(l->primer_Elemento == NULL){
+        printf("--> NULL\n");
+    }else{
+        Nodo_A*aux = l->primer_Elemento;
+        while(aux != NULL){
+            printf("--> %i", aux->ahorro.saldo);
+            aux = aux->siguiente;
+        }
+
+        printf("--> NULL\n");
+    }
+}
+//-------------------------CREAR:CUENTA AHORRO----------------
+Lista_a *crearLista_Ahorro() {
+    Lista_a *l=(Lista_a*)malloc(sizeof(Lista_a)*1);
+    l->primer_Elemento=NULL;
+    return l;
+};
+//-------------------------CREAR NODO: AHORRO-------
+Nodo_A* crearNodo_Ahorro(Ahorro a){
+    Nodo_A *n = (Nodo_A*)malloc(sizeof(Nodo_A)*1);
+    n->ahorro= a;
+    n->siguiente = NULL ;
+    return n;
+}
+//------------------------AGREGAR AL FINAL: AHORRO----------
+void agregar_final_ahorro(Lista_a *l, Ahorro a) {
+
+    Nodo_A *nuevoNodo = crearNodo_Ahorro(a);
+    if (l->primer_Elemento == NULL) {
+        l->primer_Elemento = nuevoNodo;
+    } else {
+        Nodo_A *aux = l->primer_Elemento;
+        while (aux->siguiente != NULL) {
+            aux = aux->siguiente;
+        }
+        aux->siguiente = nuevoNodo;
+    }
+}
+
+//------------------------NODO:VISTA--------------------
+typedef struct nodo_vista {
+    Vista vista;
+    struct nodo *siguiente;
+}Nodo_V;
+//------------------------LISTA:VISTA--------------------
+
+typedef struct lista_vista {
+    Nodo_V *primer_Elemento;
+}Lista_v;
+//-------------------------IMPRIMIR LISTA ENLAZADA:AHORRO---------------
+void imprimir_lista_v(Lista_v *l){
+    if(l->primer_Elemento == NULL){
+        printf("--> NULL\n");
+    }else{
+        Nodo_V *aux = l->primer_Elemento;
+        while(aux != NULL){
+            printf("--> %i", aux->vista.saldo);
+            aux = aux->siguiente;
+        }
+
+        printf("--> NULL\n");
+    }
+}
+//-------------------------CREAR:CUENTA VISTA----------------
+Lista_v *crearLista_Vista() {
+    Lista_v *l=(Lista_v*)malloc(sizeof(Lista_v)*1);
+    l->primer_Elemento=NULL;
+    return l;
+};
+//-------------------------CREAR NODO: VISTA-------
+Nodo_V* crearNodo_Vista(Vista v){
+    Nodo_V *n = (Nodo_V*)malloc(sizeof(Nodo_V)*1);
+    n->vista= v;
+    n->siguiente = NULL ;
+    return n;
+}
+//------------------------AGREGAR AL FINAL: VISTA----------
+void agregar_final_vista(Lista_v *l, Vista v) {
+
+    Nodo_V *nuevoNodo = crearNodo_Vista(v);
+    if (l->primer_Elemento == NULL) {
+        l->primer_Elemento = nuevoNodo;
+    } else {
+        Nodo_V *aux = l->primer_Elemento;
         while (aux->siguiente != NULL) {
             aux = aux->siguiente;
         }
@@ -82,7 +187,7 @@ typedef struct sucursales {
 //------------------------REGISTRAR CUENTA CORRIENTE----------
 void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal) {
     FILE *archivo;
-    Lista *l=crearLista_Corriente();
+    Lista_c *l=crearLista_Corriente();
     char nombre_encontrar[50],apellidos_encontrar[50];
     int rut_encontrar;
     int saldo_encontrar;
@@ -96,30 +201,51 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
     int bandera=0;
         switch (*sucursal) {
 
-            case 1:archivo=fopen("Corriente 1.txt","a+");
+            case 1:archivo=fopen("Corriente 1.txt","r");
                 if(archivo == NULL) {
-                    printf("Se abrio <]con w");
-                    archivo=fopen("Corriente 1.txt","w");
+                    *encontrado=0;
+                    archivo=fopen("Corriente 1.txt","a+");
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Corriente 1.txt","a+");
                 }
 
                 break;
-            case 2:archivo=fopen("Corriente 2.txt","a+");
+            case 2:archivo=fopen("Corriente 2.txt","r");
                 if(archivo==NULL) {
-                    archivo=fopen("Corriente 2.txt","w");}
-                break;
-            case 3:archivo=fopen("Corriente 3.txt","a+");
-                if(archivo==NULL) {
-                    archivo=fopen("Corriente 3.txt","w");
+                    *encontrado=0;
+                    archivo=fopen("Corriente 2.txt","a+");}
+                else {
+                    fclose(archivo);
+                    archivo=fopen("Corriente 2.txt","a+");
                 }
                 break;
-            case 4:archivo=fopen("Corriente 4.txt","a+");
+            case 3:archivo=fopen("Corriente 3.txt","r");
                 if(archivo==NULL) {
-                    archivo=fopen("Corriente 4.txt","w");
+                    *encontrado=0;
+                    archivo=fopen("Corriente 3.txt","a+");
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Corriente 3.txt","a+");
                 }
                 break;
-            case 5:archivo=fopen("Corriente 5.txt","a+");
+            case 4:archivo=fopen("Corriente 4.txt","r");
                 if(archivo==NULL) {
-                    archivo=fopen("Corriente 5.txt","w");
+                    *encontrado=0;
+                    archivo=fopen("Corriente 4.txt","a+");
+                }
+                else {
+                    fclose(archivo);
+                    archivo=fopen("Corriente 4.txt","a+");
+                }
+                break;
+            case 5:archivo=fopen("Corriente 5.txt","r");
+                if(archivo==NULL) {
+                    *encontrado=0;
+                    archivo=fopen("Corriente 5.txt","a+");
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Corriente 5.txt","a+");
                 }
                 break;
 
@@ -129,11 +255,8 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
         while (fscanf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i\n",nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar)==4 && bandera==0) {
             if(strcmp(nombre_encontrar,nombre)==0 && strcmp(apellidos_encontrar,apellidos)==0 && rut_encontrar== *rut) {
                 *encontrado=1;
-                printf("Existe en corriente");
                 bandera=1;
             }
-            imprimir_lista(l);
-
             corriente.saldo=saldo_encontrar;
             contador++;
             agregar_final_Corriente(l,corriente);
@@ -141,7 +264,6 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
 
 
         }
-        printf("Se encuentra en %i.\n",contador);
 
         //-------------------------NO ENCONTRADO CUENTA PERO SI EXISTE EL ARCHIVO---------------------------------------
 
@@ -172,11 +294,230 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
         fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,corriente.saldo);
 
     }
-    imprimir_lista(l);
     fclose(archivo);
     }
 
+//------------------------REGISTRAR CUENTA AHORRO----------
+void registrar_ahorro(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal) {
+    FILE *archivo;
+    Lista_a *l=crearLista_Ahorro();
+    char nombre_encontrar[50],apellidos_encontrar[50];
+    int rut_encontrar;
+    int saldo_encontrar;
+    int saldo;
+    int decision_crear_cuenta;
+    Ahorro ahorro;
+    int contador=0;
+    int bandera=0;
+        switch (*sucursal) {
 
+            case 1:archivo=fopen("Ahorro 1.txt","r");
+                if(archivo == NULL) {
+                    *encontrado=0;
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Ahorro 1.txt","a+");
+
+                    *encontrado=0;
+                }
+
+                break;
+            case 2:archivo=fopen("Ahorro 2.txt","r");
+                if(archivo==NULL) {
+                    *encontrado=0;
+                    archivo=fopen("Ahorro 2.txt","a+");}
+                else {
+                    fclose(archivo);
+                    archivo=fopen("Ahorro 2.txt","a+");
+                }
+                break;
+            case 3:archivo=fopen("Ahorro 3.txt","r");
+                if(archivo==NULL) {
+                    archivo=fopen("Ahorro 3.txt","a+");
+                    *encontrado=0;
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Ahorro 3.txt","a+");
+                }
+                break;
+            case 4:archivo=fopen("Ahorro 4.txt","r");
+
+                if(archivo==NULL) {
+                    *encontrado=0;
+                    archivo=fopen("Ahorro 4.txt","a+");
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Ahorro 4.txt","a+");
+                }
+                break;
+            case 5:archivo=fopen("Ahorro 5.txt","r");
+
+                if(archivo==NULL) {
+                    *encontrado=0;
+                    archivo=fopen("Ahorro 5.txt","a+");
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Ahorro 5.txt","a+");
+                }
+                printf("encontrado %i",*encontrado);
+                break;
+
+        }
+        //-----------------------BUSCAR CUENTA DENTRO DE LA ESTRUCURA: CORRIENTE---------------------
+    if(*encontrado==1) {
+        while (fscanf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i\n",nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar)==4 && bandera==0) {
+            if(strcmp(nombre_encontrar,nombre)==0 && strcmp(apellidos_encontrar,apellidos)==0 && rut_encontrar== *rut) {
+                *encontrado=1;
+                bandera=1;
+            }
+            ahorro.saldo=saldo_encontrar;
+            contador++;
+            agregar_final_ahorro(l,ahorro);
+
+        }
+
+        //-------------------------NO ENCONTRADO CUENTA PERO SI EXISTE EL ARCHIVO---------------------------------------
+
+        if(*encontrado==0) {
+            printf("No se encuentra en su cuenta Corriente en la sucursal %i, desea agregar?\n(1.Si/2.No)",*sucursal);
+            scanf("%i",&decision_crear_cuenta);
+            if(decision_crear_cuenta==1) {
+                printf("Ingrese su saldo:  ");
+                scanf("%i",&saldo);
+                ahorro.saldo=saldo;
+                agregar_final_ahorro(l,ahorro);
+                printf("Contador = %i",contador);
+                fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,ahorro.saldo);
+
+                printf("Creado,%i\n",ahorro.saldo);
+            }
+
+        }
+
+    }
+
+    if(*encontrado==0) {
+        printf("No se encuentra su cuenta");
+        printf("Ingresa tu saldo: \n");
+        scanf("%i",&saldo);
+        ahorro.saldo=saldo;
+        agregar_final_ahorro(l,ahorro);
+        fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,ahorro.saldo);
+
+    }
+    fclose(archivo);
+    }
+
+//------------------------REGISTRAR CUENTA AHORRO----------
+void registrar_vista(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal) {
+    FILE *archivo;
+    Lista_v *l= crearLista_Vista();
+    char nombre_encontrar[50],apellidos_encontrar[50];
+    int rut_encontrar;
+    int saldo_encontrar;
+    int saldo;
+    int decision_crear_cuenta;
+    Vista vista;
+    int contador=0;
+    int bandera=0;
+        switch (*sucursal) {
+
+            case 1:archivo=fopen("Vista 1.txt","r");
+                if(archivo == NULL) {
+                    *encontrado=0;
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Vista 1.txt","a+");
+
+                    *encontrado=0;
+                }
+
+                break;
+            case 2:archivo=fopen("Vista 2.txt","r");
+                if(archivo==NULL) {
+                    *encontrado=0;
+                    archivo=fopen("Vista 2.txt","a+");}
+                else {
+                    fclose(archivo);
+                    archivo=fopen("Vista 2.txt","a+");
+                }
+                break;
+            case 3:archivo=fopen("Vista 3.txt","r");
+                if(archivo==NULL) {
+                    archivo=fopen("Vista 3.txt","a+");
+                    *encontrado=0;
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Vista 3.txt","a+");
+                }
+                break;
+            case 4:archivo=fopen("Vista 4.txt","r");
+
+                if(archivo==NULL) {
+                    *encontrado=0;
+                    archivo=fopen("Vista 4.txt","a+");
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Vista 4.txt","a+");
+                }
+                break;
+            case 5:archivo=fopen("Vista 5.txt","r");
+
+                if(archivo==NULL) {
+                    *encontrado=0;
+                    archivo=fopen("Vista 5.txt","a+");
+                }else {
+                    fclose(archivo);
+                    archivo=fopen("Vista 5.txt","a+");
+                }
+                printf("encontrado %i",*encontrado);
+                break;
+
+        }
+        //-----------------------BUSCAR CUENTA DENTRO DE LA ESTRUCURA: CORRIENTE---------------------
+    if(*encontrado==1) {
+        while (fscanf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i\n",nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar)==4 && bandera==0) {
+            if(strcmp(nombre_encontrar,nombre)==0 && strcmp(apellidos_encontrar,apellidos)==0 && rut_encontrar== *rut) {
+                *encontrado=1;
+                bandera=1;
+            }
+            vista.saldo=saldo_encontrar;
+            contador++;
+            agregar_final_vista(l,vista);
+
+        }
+
+        //-------------------------NO ENCONTRADO CUENTA PERO SI EXISTE EL ARCHIVO---------------------------------------
+
+        if(*encontrado==0) {
+            printf("No se encuentra en su cuenta Corriente en la sucursal %i, desea agregar?\n(1.Si/2.No)",*sucursal);
+            scanf("%i",&decision_crear_cuenta);
+            if(decision_crear_cuenta==1) {
+                printf("Ingrese su saldo:  ");
+                scanf("%i",&saldo);
+                vista.saldo=saldo;
+                agregar_final_vista(l,vista);
+                printf("Contador = %i",contador);
+                fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,vista.saldo);
+
+                printf("Creado,%i\n",vista.saldo);
+            }
+
+        }
+
+    }
+
+    if(*encontrado==0) {
+        printf("No se encuentra su cuenta");
+        printf("Ingresa tu saldo: \n");
+        scanf("%i",&saldo);
+        vista.saldo=saldo;
+        agregar_final_vista(l,vista);
+        fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,vista.saldo);
+
+    }
+    fclose(archivo);
+    }
 
 //------------------------ENCONTRAR CUENTA EN GENERAL----------
 void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *encontrado) {
@@ -313,19 +654,10 @@ void ver_cuentas(int *opcion,char *nombres,char *apellidos,int *encontrado,int *
 
     printf("1. Ver Cuenta Corriente\n2. Ver Cuenta Ahorro\n3. Ver Cuenta Vista\nOpcion: ");
     scanf("%i",opcion);
-
-
     switch (*opcion) {
-        case 1:
-
-            registrar_corriente(nombres,apellidos,rut,encontrado,sucursal );
-
-            break;
-
-        case 2:
-            break;
-        case 3:
-            break;
+        case 1:registrar_corriente(nombres,apellidos,rut,encontrado,sucursal );break;
+        case 2:registrar_ahorro(nombres,apellidos,rut,encontrado,sucursal );break;
+        case 3:registrar_vista(nombres,apellidos,rut,encontrado,sucursal);break;
     }
 
 }
