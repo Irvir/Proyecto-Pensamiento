@@ -1,16 +1,4 @@
-Nombre: m Apellidos: a Rut: 1 Saldo: 30 
-Nombre: m Apellidos: e Rut: 1 Saldo: 90 
-Nombre: Josefina Apellidos: Palmera Rut: 1 Saldo: 300 
-Nombre: me Apellidos: t Rut: 1 Saldo: 30 
-Nombre: Sofia Apellidos: Salas Rut: 3 Saldo: 3000 
-Nombre: 1 Apellidos: 1 Rut: 1 Saldo: 1 
-Nombre: Juan Apellidos: Perez Rut: 0 Saldo: 10 
-Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 40 
-Nombre: Juan Apellidos: Perez Rut: 0 Saldo: 300 
-Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 400 
-Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 5999 
-Nombre: Juan Apellidos: Perez Rut: 0 Saldo: 30 
-Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 100 
-Nombre: Maria Apellidos: Gomez Rut: 0 Saldo: 9000 
-Nombre: m Apellidos: a Rut: 2 Saldo: 3000 
-Nombre: m Apellidos: j Rut: 1 Saldo: 1 
+Nombre: m Apellidos: a Rut: 1 Saldo: 2147483647 Interes: 25 Comision: 0
+Nombre: m Apellidos: e Rut: 1 Saldo: 20000000 Interes: 25 Comision: 1801198521
+Nombre: m Apellidos: k Rut: 1 Saldo: 2000000 Interes: 25 Comision: 100000
+Nombre: Benjamin Apellidos: Jara Rut: 219901801 Saldo: 700000 Interes: 15 Comision: 50000

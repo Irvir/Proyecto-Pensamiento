@@ -1,198 +1,97 @@
 #include <stdio.h>
-//Cuenta Corriente
-typedef struct cuenta_corriente {
-    int saldo;
-    float interes;
-    float comision_mensual;
-}Corriente;
+#include "Libreria_2,_SOLO_ESTRUCTURAS.h"
 
-//Cuenta Ahorro
-typedef struct cuenta_ahorro {
-    int saldo;
-    float interes;
-    float comision_mensual;
-}Ahorro;
+int interes(int *tipo_cuenta, int *saldo) {
+    int interes=0;
+    printf("-----------------\n");
+    printf("Saldo: %i\n", *saldo);
+    switch (*tipo_cuenta) {
+        case 1:  // Cuenta Corriente
+            if (*saldo <= 150000) {
+                Corriente corriente;
+                interes = 5;
+                corriente.interes = interes;
+            } else if (*saldo > 150000 && *saldo < 600000) {
+                interes = 10;
+            } else if (*saldo >= 600000 && *saldo < 1500000) {
+                interes = 15;
+            } else {
+                interes = 25;
+            }
+        break;
+        case 2:  // Cuenta Ahorro
+        case 3:  // Cuenta Vista
+            if (*saldo <= 150000) {
+                interes = 5;
+            } else if (*saldo > 150000 && *saldo < 600000) {
+                interes = 10;
+            } else if (*saldo >= 600000 && *saldo < 1500000) {
+                interes = 15;
+            } else {
+                interes = 25;
+            }
+        break;
+    }
+    printf("||||||||||||%i",interes);
+    return interes;
+}
 
-//Cuenta Vista
-typedef struct cuenta_vista {
-    int saldo;
-    float interes;
-    float comision_mensual;
-}Vista;
-//------------------------NODO:CORRIENTE--------------------
-typedef struct nodo_corriente {
+int comision(int *tipo_cuenta, int *saldo) {
+    int comision=0;
     Corriente corriente;
-    struct nodo *siguiente;
-}Nodo_C;
-//------------------------LISTA:CORRIENTE--------------------
-
-typedef struct lista_c {
-    Nodo_C *primer_Elemento;
-}Lista_c;
-//-------------------------IMPRIMIR LISTA ENLAZADA:CORRIENTE---------------
-void imprimir_lista_c(Lista_c *l){
-    if(l->primer_Elemento == NULL){
-        printf("--> NULL\n");
-    }else{
-        Nodo_C *aux = l->primer_Elemento;
-        while(aux != NULL){
-            printf("--> %i", aux->corriente.saldo);
-            aux = aux->siguiente;
-        }
-
-        printf("--> NULL\n");
-    }
-}
-//-------------------------CREAR LISTA: CUENTA CORRIENTE----------------
-Lista_c *crearLista_Corriente() {
-    Lista_c *l=(Lista_c*)malloc(sizeof(Lista_c)*1);
-    l->primer_Elemento=NULL;
-    return l;
-};
-//-------------------------CREAR NODO CORRIENTE-------
-Nodo_C* crearNodo_Corriente(Corriente c){
-    Nodo_C *n = (Nodo_C*)malloc(sizeof(Nodo_C)*1);
-    n->corriente = c;
-    n->siguiente = NULL ;
-    return n;
-}
-//------------------------AGREGAR AL FINAL: CUENTA CORRIENTE----------
-void agregar_final_Corriente(Lista_c *l, Corriente c) {
-
-    Nodo_C *nuevoNodo = crearNodo_Corriente(c);
-    if (l->primer_Elemento == NULL) {
-        l->primer_Elemento = nuevoNodo;
-    } else {
-        Nodo_C *aux = l->primer_Elemento;
-        while (aux->siguiente != NULL) {
-            aux = aux->siguiente;
-        }
-        aux->siguiente = nuevoNodo;
-    }
-}
-//------------------------NODO:AHORRO--------------------
-typedef struct nodo_ahorro {
     Ahorro ahorro;
-    struct nodo *siguiente;
-}Nodo_A;
-//------------------------LISTA:AHORRO--------------------
-
-typedef struct lista {
-    Nodo_A *primer_Elemento;
-}Lista_a;
-//-------------------------IMPRIMIR LISTA ENLAZADA:AHORRO---------------
-void imprimir_lista_a(Lista_a *l){
-    if(l->primer_Elemento == NULL){
-        printf("--> NULL\n");
-    }else{
-        Nodo_A*aux = l->primer_Elemento;
-        while(aux != NULL){
-            printf("--> %i", aux->ahorro.saldo);
-            aux = aux->siguiente;
-        }
-
-        printf("--> NULL\n");
-    }
-}
-//-------------------------CREAR:CUENTA AHORRO----------------
-Lista_a *crearLista_Ahorro() {
-    Lista_a *l=(Lista_a*)malloc(sizeof(Lista_a)*1);
-    l->primer_Elemento=NULL;
-    return l;
-};
-//-------------------------CREAR NODO: AHORRO-------
-Nodo_A* crearNodo_Ahorro(Ahorro a){
-    Nodo_A *n = (Nodo_A*)malloc(sizeof(Nodo_A)*1);
-    n->ahorro= a;
-    n->siguiente = NULL ;
-    return n;
-}
-//------------------------AGREGAR AL FINAL: AHORRO----------
-void agregar_final_ahorro(Lista_a *l, Ahorro a) {
-
-    Nodo_A *nuevoNodo = crearNodo_Ahorro(a);
-    if (l->primer_Elemento == NULL) {
-        l->primer_Elemento = nuevoNodo;
-    } else {
-        Nodo_A *aux = l->primer_Elemento;
-        while (aux->siguiente != NULL) {
-            aux = aux->siguiente;
-        }
-        aux->siguiente = nuevoNodo;
-    }
-}
-
-//------------------------NODO:VISTA--------------------
-typedef struct nodo_vista {
     Vista vista;
-    struct nodo *siguiente;
-}Nodo_V;
-//------------------------LISTA:VISTA--------------------
+    printf("-----------------\n");
+    switch (*tipo_cuenta) {
+        case 1:  // Cuenta Corriente
+            if (*saldo <= 150000) {
+                comision = 10000;
+                corriente.comision_mensual = comision;
 
-typedef struct lista_vista {
-    Nodo_V *primer_Elemento;
-}Lista_v;
-//-------------------------IMPRIMIR LISTA ENLAZADA:AHORRO---------------
-void imprimir_lista_v(Lista_v *l){
-    if(l->primer_Elemento == NULL){
-        printf("--> NULL\n");
-    }else{
-        Nodo_V *aux = l->primer_Elemento;
-        while(aux != NULL){
-            printf("--> %i", aux->vista.saldo);
-            aux = aux->siguiente;
-        }
+            } else if (*saldo > 150000 && *saldo < 600000) {
+                comision = 20000;
+                corriente.comision_mensual = comision;
+            } else if (*saldo >= 600000 && *saldo < 1500000) {
+                comision = 50000;
+                corriente.comision_mensual = comision;
+            } else {
+                comision = 100000;
+                corriente.comision_mensual = comision;
+            }
+        break;
+        case 2:  // Cuenta Ahorro
+        case 3:  // Cuenta Vista
+            if (*saldo <= 150000) {
+                comision = 10000;
+                vista.comision_mensual = comision;
 
-        printf("--> NULL\n");
+            } else if (*saldo > 150000 && *saldo < 600000) {
+                comision = 20000;
+                vista.comision_mensual = comision;
+            } else if (*saldo >= 600000 && *saldo < 1500000) {
+                comision = 50000;
+                vista.comision_mensual = comision;
+            } else {
+                comision = 100000;
+                vista.comision_mensual = comision;
+            }
+        break;
     }
+    printf("||||||||||||%i",interes);
+    return comision;
 }
-//-------------------------CREAR:CUENTA VISTA----------------
-Lista_v *crearLista_Vista() {
-    Lista_v *l=(Lista_v*)malloc(sizeof(Lista_v)*1);
-    l->primer_Elemento=NULL;
-    return l;
-};
-//-------------------------CREAR NODO: VISTA-------
-Nodo_V* crearNodo_Vista(Vista v){
-    Nodo_V *n = (Nodo_V*)malloc(sizeof(Nodo_V)*1);
-    n->vista= v;
-    n->siguiente = NULL ;
-    return n;
-}
-//------------------------AGREGAR AL FINAL: VISTA----------
-void agregar_final_vista(Lista_v *l, Vista v) {
-
-    Nodo_V *nuevoNodo = crearNodo_Vista(v);
-    if (l->primer_Elemento == NULL) {
-        l->primer_Elemento = nuevoNodo;
-    } else {
-        Nodo_V *aux = l->primer_Elemento;
-        while (aux->siguiente != NULL) {
-            aux = aux->siguiente;
-        }
-        aux->siguiente = nuevoNodo;
-    }
-}
-
-//------------------------ESTRUCTURAS SUCURSAL----------
-typedef struct sucursales {
-    char nombre[50];
-    char apellidos[50];
-    int rut;
-    int saldo;
-    int interes;
-}Sucursal;
-
 
 //------------------------REGISTRAR CUENTA CORRIENTE----------
-void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal) {
+void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal,int *opcion) {
     FILE *archivo;
     Lista_c *l=crearLista_Corriente();
     char nombre_encontrar[50],apellidos_encontrar[50];
-    int rut_encontrar;
-    int saldo_encontrar;
-    int saldo;
+    int rut_encontrar,saldo_encontrar,interes_encontrar,comision_encontrar;
+    int *saldo=(int *)malloc(sizeof(int)*1);
+    int interes_final,comision_final;
+
     int decision_crear_cuenta;
+
     Corriente corriente;
 
 
@@ -252,12 +151,15 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
         }
         //-----------------------BUSCAR CUENTA DENTRO DE LA ESTRUCURA: CORRIENTE---------------------
     if(*encontrado==1) {
-        while (fscanf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i\n",nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar)==4 && bandera==0) {
+        while (fscanf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i Interes: %i Comision: %i\n",nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&interes_encontrar,&comision_encontrar)==6 && bandera==0) {
             if(strcmp(nombre_encontrar,nombre)==0 && strcmp(apellidos_encontrar,apellidos)==0 && rut_encontrar== *rut) {
+                interes(opcion,saldo);
                 *encontrado=1;
                 bandera=1;
             }
             corriente.saldo=saldo_encontrar;
+            corriente.interes=interes_encontrar;
+            corriente.comision_mensual=comision_encontrar;
             contador++;
             agregar_final_Corriente(l,corriente);
 
@@ -272,10 +174,11 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
             scanf("%i",&decision_crear_cuenta);
             if(decision_crear_cuenta==1) {
                 printf("Ingrese su saldo:  ");
-                scanf("%i",&saldo);
+                scanf("%i",saldo);
                 corriente.saldo=saldo;
                 agregar_final_Corriente(l,corriente);
                 printf("Contador = %i",contador);
+
                 fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,corriente.saldo);
 
                 printf("Creado,%i\n",corriente.saldo);
@@ -288,17 +191,23 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
     if(*encontrado==0) {
         printf("No se encuentra su cuenta");
         printf("Ingresa tu saldo: \n");
-        scanf("%i",&saldo);
-        corriente.saldo=saldo;
+        scanf("%i",saldo);
+        corriente.saldo=*saldo;
+        interes_final=interes(opcion,saldo);
+        comision_final=comision(opcion,saldo);
+        corriente.interes=interes_final;
+        corriente.comision_mensual=comision_final;
         agregar_final_Corriente(l,corriente);
-        fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,corriente.saldo);
+        fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i Interes: %i Comision: %i\n",nombre,apellidos,*rut,corriente.saldo,interes_final,corriente.comision_mensual);
 
     }
+    printf("\n---CUENTA CORRIENTE---\nInformacion de la cuenta:\nNombre: %s \nApellidos: %s \nRut: %i\nSaldo:%i \nInteres: %i\nComision %i",nombre,apellidos,*rut,corriente.saldo,corriente.interes,corriente.comision_mensual);
+    imprimir_lista_c(l);
     fclose(archivo);
     }
 
 //------------------------REGISTRAR CUENTA AHORRO----------
-void registrar_ahorro(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal) {
+void registrar_ahorro(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal,int *opcion) {
     FILE *archivo;
     Lista_a *l=crearLista_Ahorro();
     char nombre_encontrar[50],apellidos_encontrar[50];
@@ -366,6 +275,9 @@ void registrar_ahorro(char *nombre,char *apellidos,int *rut,int *encontrado,int 
         //-----------------------BUSCAR CUENTA DENTRO DE LA ESTRUCURA: CORRIENTE---------------------
     if(*encontrado==1) {
         while (fscanf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i\n",nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar)==4 && bandera==0) {
+            nombre_encontrar[strcspn(nombre_encontrar, "\n")] = '\0';
+            apellidos_encontrar[strcspn(apellidos_encontrar, "\n")] = '\0';
+
             if(strcmp(nombre_encontrar,nombre)==0 && strcmp(apellidos_encontrar,apellidos)==0 && rut_encontrar== *rut) {
                 *encontrado=1;
                 bandera=1;
@@ -409,7 +321,7 @@ void registrar_ahorro(char *nombre,char *apellidos,int *rut,int *encontrado,int 
     }
 
 //------------------------REGISTRAR CUENTA AHORRO----------
-void registrar_vista(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal) {
+void registrar_vista(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal,int *opcion) {
     FILE *archivo;
     Lista_v *l= crearLista_Vista();
     char nombre_encontrar[50],apellidos_encontrar[50];
@@ -597,6 +509,7 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
 
     fclose(archivo);
 }
+
 //------------------------REGISTRAR CUENTA SUCURSAL----------
 void registrar_cuenta_sucursal(char *nombre, char *apellidos, int *rut,int *sucursal) {
     FILE *archivo;
@@ -655,9 +568,9 @@ void ver_cuentas(int *opcion,char *nombres,char *apellidos,int *encontrado,int *
     printf("1. Ver Cuenta Corriente\n2. Ver Cuenta Ahorro\n3. Ver Cuenta Vista\nOpcion: ");
     scanf("%i",opcion);
     switch (*opcion) {
-        case 1:registrar_corriente(nombres,apellidos,rut,encontrado,sucursal );break;
-        case 2:registrar_ahorro(nombres,apellidos,rut,encontrado,sucursal );break;
-        case 3:registrar_vista(nombres,apellidos,rut,encontrado,sucursal);break;
+        case 1:registrar_corriente(nombres,apellidos,rut,encontrado,sucursal,opcion);break;
+        case 2:registrar_ahorro(nombres,apellidos,rut,encontrado,sucursal,opcion );break;
+        case 3:registrar_vista(nombres,apellidos,rut,encontrado,sucursal,opcion);break;
     }
 
 }

@@ -1,12 +1,4 @@
 Nombre: m Apellidos: a Rut: 1
 Nombre: m Apellidos: e Rut: 1
-Nombre: Josefina Apellidos: Palmera Rut: 1
-Nombre: me Apellidos: t Rut: 1
-Nombre: Sofia Apellidos: Salas Rut: 3
-Nombre: 1 Apellidos: 1 Rut: 1
-Nombre: 1 Apellidos: m Rut: 1
-Nombre: m Apellidos: a Rut: 2
-Nombre: 1 Apellidos: m Rut: 0
-Nombre: m Apellidos: j Rut: 1
-Nombre:  Apellidos: j Rut: 1
-Nombre: m Apellidos: e Rut: 3
+Nombre: m Apellidos: k Rut: 1
+Nombre: Benjamin Apellidos: Jara Rut: 219901801

@@ -5,6 +5,7 @@
 
 
 
+
 void menu(int opcion) {
     int sucursal;
     char nombre[50];
@@ -15,7 +16,7 @@ void menu(int opcion) {
     int encontrado;
 
     int decision_ver_cuenta;
-    printf("Menu de opciones:\n1.Ver Cuenta\n2.Crear Cuenta\n3.Operacion de cuentas\n0.Salir\nEscriba su opcion:");
+    printf("Menu de opciones:\n1.Ver Cuenta\n2.Crear Cuenta\n3.Operacion de cuentas\n4.Simulacion de interes en el tiempo\n0.Salir\nEscriba su opcion:");
     scanf("%i", &opcion);
     switch (opcion) {
         case 1:
@@ -45,6 +46,8 @@ void menu(int opcion) {
             printf("Error! Estimado(a): %s %s (Rut: %i), su cuenta ya está registrada\n", nombre, apellidos, rut);
         }
         break;
+        case 3:break;
+        case 4:break;
 
     }
 
