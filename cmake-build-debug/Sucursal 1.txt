@@ -1,4 +1,5 @@
-Nombre: m Apellidos: a Rut: 1
-Nombre: m Apellidos: e Rut: 1
-Nombre: m Apellidos: k Rut: 1
-Nombre: Benjamin Apellidos: Jara Rut: 219901801
+Cuenta: 2 Nombre: Ma Apellidos: Em Rut: 30
+Cuenta: 1 Nombre: mar Apellidos: ti Rut: 20
+Cuenta: 300 Nombre: kk Apellidos: po Rut: 67
+Cuenta: 99 Nombre: po Apellidos: lo Rut: 98
+Cuenta: 150 Nombre: ke Apellidos: loke Rut: 300

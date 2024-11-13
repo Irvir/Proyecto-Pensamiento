@@ -8,6 +8,7 @@ typedef struct cuenta_corriente {
 
 //Cuenta Ahorro
 typedef struct cuenta_ahorro {
+    int estado;
     int numero_de_cuenta;
     int saldo;
     int interes;
@@ -16,6 +17,7 @@ typedef struct cuenta_ahorro {
 
 //Cuenta Vista
 typedef struct cuenta_vista {
+    int estado;
     int numero_de_cuenta;
     int saldo;
     int interes;

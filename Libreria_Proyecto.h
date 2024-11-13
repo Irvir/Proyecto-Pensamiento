@@ -1,6 +1,25 @@
 #include <stdio.h>
 #include "Libreria_2,_SOLO_ESTRUCTURAS.h"
+void verificar_saldo(int *saldo,int tipo_de_cuenta,int *activo) {
+    switch (tipo_de_cuenta) {
+        case 1:break;
+        case 2:
+            if(*saldo<100000) {
+                *activo=0;
+            }
+            *activo=1;
+            break;
+        case 3:
+            if(*saldo>2500000) {
+                *activo=0;
+            }
+            *activo=1;
+            break;
 
+    }
+
+
+}
 int interes(int *tipo_cuenta, int *saldo) {
     int interes=0;
     printf("-----------------\n");
@@ -77,7 +96,6 @@ int comision(int *tipo_cuenta, int *saldo) {
             }
         break;
     }
-    printf("||||||||||||%i",interes);
     return comision;
 }
 
@@ -206,247 +224,22 @@ void registrar_corriente(char *nombre,char *apellidos,int *rut,int *encontrado,i
     fclose(archivo);
     }
 
-//------------------------REGISTRAR CUENTA AHORRO----------
-void registrar_ahorro(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal,int *opcion) {
-    FILE *archivo;
-    Lista_a *l=crearLista_Ahorro();
-    char nombre_encontrar[50],apellidos_encontrar[50];
-    int rut_encontrar;
-    int saldo_encontrar;
-    int saldo;
-    int decision_crear_cuenta;
-    Ahorro ahorro;
-    int contador=0;
-    int bandera=0;
-        switch (*sucursal) {
 
-            case 1:archivo=fopen("Ahorro 1.txt","r");
-                if(archivo == NULL) {
-                    *encontrado=0;
-                }else {
-                    fclose(archivo);
-                    archivo=fopen("Ahorro 1.txt","a+");
-
-                    *encontrado=0;
-                }
-
-                break;
-            case 2:archivo=fopen("Ahorro 2.txt","r");
-                if(archivo==NULL) {
-                    *encontrado=0;
-                    archivo=fopen("Ahorro 2.txt","a+");}
-                else {
-                    fclose(archivo);
-                    archivo=fopen("Ahorro 2.txt","a+");
-                }
-                break;
-            case 3:archivo=fopen("Ahorro 3.txt","r");
-                if(archivo==NULL) {
-                    archivo=fopen("Ahorro 3.txt","a+");
-                    *encontrado=0;
-                }else {
-                    fclose(archivo);
-                    archivo=fopen("Ahorro 3.txt","a+");
-                }
-                break;
-            case 4:archivo=fopen("Ahorro 4.txt","r");
-
-                if(archivo==NULL) {
-                    *encontrado=0;
-                    archivo=fopen("Ahorro 4.txt","a+");
-                }else {
-                    fclose(archivo);
-                    archivo=fopen("Ahorro 4.txt","a+");
-                }
-                break;
-            case 5:archivo=fopen("Ahorro 5.txt","r");
-
-                if(archivo==NULL) {
-                    *encontrado=0;
-                    archivo=fopen("Ahorro 5.txt","a+");
-                }else {
-                    fclose(archivo);
-                    archivo=fopen("Ahorro 5.txt","a+");
-                }
-                printf("encontrado %i",*encontrado);
-                break;
-
-        }
-        //-----------------------BUSCAR CUENTA DENTRO DE LA ESTRUCURA: CORRIENTE---------------------
-    if(*encontrado==1) {
-        while (fscanf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i\n",nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar)==4 && bandera==0) {
-            nombre_encontrar[strcspn(nombre_encontrar, "\n")] = '\0';
-            apellidos_encontrar[strcspn(apellidos_encontrar, "\n")] = '\0';
-
-            if(strcmp(nombre_encontrar,nombre)==0 && strcmp(apellidos_encontrar,apellidos)==0 && rut_encontrar== *rut) {
-                *encontrado=1;
-                bandera=1;
-            }
-            ahorro.saldo=saldo_encontrar;
-            contador++;
-            agregar_final_ahorro(l,ahorro);
-
-        }
-
-        //-------------------------NO ENCONTRADO CUENTA PERO SI EXISTE EL ARCHIVO---------------------------------------
-
-        if(*encontrado==0) {
-            printf("No se encuentra en su cuenta Corriente en la sucursal %i, desea agregar?\n(1.Si/2.No)",*sucursal);
-            scanf("%i",&decision_crear_cuenta);
-            if(decision_crear_cuenta==1) {
-                printf("Ingrese su saldo:  ");
-                scanf("%i",&saldo);
-                ahorro.saldo=saldo;
-                agregar_final_ahorro(l,ahorro);
-                printf("Contador = %i",contador);
-                fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,ahorro.saldo);
-
-                printf("Creado,%i\n",ahorro.saldo);
-            }
-
-        }
-
-    }
-
-    if(*encontrado==0) {
-        printf("No se encuentra su cuenta");
-        printf("Ingresa tu saldo: \n");
-        scanf("%i",&saldo);
-        ahorro.saldo=saldo;
-        agregar_final_ahorro(l,ahorro);
-        fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,ahorro.saldo);
-
-    }
-    fclose(archivo);
-    }
-
-//------------------------REGISTRAR CUENTA AHORRO----------
-void registrar_vista(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal,int *opcion) {
-    FILE *archivo;
-    Lista_v *l= crearLista_Vista();
-    char nombre_encontrar[50],apellidos_encontrar[50];
-    int rut_encontrar;
-    int saldo_encontrar;
-    int saldo;
-    int decision_crear_cuenta;
-    Vista vista;
-    int contador=0;
-    int bandera=0;
-        switch (*sucursal) {
-
-            case 1:archivo=fopen("Vista 1.txt","r");
-                if(archivo == NULL) {
-                    *encontrado=0;
-                }else {
-                    fclose(archivo);
-                    archivo=fopen("Vista 1.txt","a+");
-
-                    *encontrado=0;
-                }
-
-                break;
-            case 2:archivo=fopen("Vista 2.txt","r");
-                if(archivo==NULL) {
-                    *encontrado=0;
-                    archivo=fopen("Vista 2.txt","a+");}
-                else {
-                    fclose(archivo);
-                    archivo=fopen("Vista 2.txt","a+");
-                }
-                break;
-            case 3:archivo=fopen("Vista 3.txt","r");
-                if(archivo==NULL) {
-                    archivo=fopen("Vista 3.txt","a+");
-                    *encontrado=0;
-                }else {
-                    fclose(archivo);
-                    archivo=fopen("Vista 3.txt","a+");
-                }
-                break;
-            case 4:archivo=fopen("Vista 4.txt","r");
-
-                if(archivo==NULL) {
-                    *encontrado=0;
-                    archivo=fopen("Vista 4.txt","a+");
-                }else {
-                    fclose(archivo);
-                    archivo=fopen("Vista 4.txt","a+");
-                }
-                break;
-            case 5:archivo=fopen("Vista 5.txt","r");
-
-                if(archivo==NULL) {
-                    *encontrado=0;
-                    archivo=fopen("Vista 5.txt","a+");
-                }else {
-                    fclose(archivo);
-                    archivo=fopen("Vista 5.txt","a+");
-                }
-                printf("encontrado %i",*encontrado);
-                break;
-
-        }
-        //-----------------------BUSCAR CUENTA DENTRO DE LA ESTRUCURA: CORRIENTE---------------------
-    if(*encontrado==1) {
-        while (fscanf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i\n",nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar)==4 && bandera==0) {
-            if(strcmp(nombre_encontrar,nombre)==0 && strcmp(apellidos_encontrar,apellidos)==0 && rut_encontrar== *rut) {
-                *encontrado=1;
-                bandera=1;
-            }
-            vista.saldo=saldo_encontrar;
-            contador++;
-            agregar_final_vista(l,vista);
-
-        }
-
-        //-------------------------NO ENCONTRADO CUENTA PERO SI EXISTE EL ARCHIVO---------------------------------------
-
-        if(*encontrado==0) {
-            printf("No se encuentra en su cuenta Corriente en la sucursal %i, desea agregar?\n(1.Si/2.No)",*sucursal);
-            scanf("%i",&decision_crear_cuenta);
-            if(decision_crear_cuenta==1) {
-                printf("Ingrese su saldo:  ");
-                scanf("%i",&saldo);
-                vista.saldo=saldo;
-                agregar_final_vista(l,vista);
-                printf("Contador = %i",contador);
-                fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,vista.saldo);
-
-                printf("Creado,%i\n",vista.saldo);
-            }
-
-        }
-
-    }
-
-    if(*encontrado==0) {
-        printf("No se encuentra su cuenta");
-        printf("Ingresa tu saldo: \n");
-        scanf("%i",&saldo);
-        vista.saldo=saldo;
-        agregar_final_vista(l,vista);
-        fprintf(archivo,"Nombre: %s Apellidos: %s Rut: %i Saldo: %i \n",nombre,apellidos,*rut,vista.saldo);
-
-    }
-    fclose(archivo);
-    }
 
 //------------------------ENCONTRAR CUENTA EN GENERAL----------
-void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *encontrado) {
+void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *encontrado,int *numero_Cuenta) {
+
     FILE *archivo;
 
     switch (*sucursal) {
         case 1:
-
             archivo = fopen("Sucursal 1.txt","r");
             if(archivo==NULL) {
                 archivo=fopen("Sucursal 1.txt","w");
                 *encontrado=0;
                 fclose(archivo);
-            }else {
-                printf("Encargado(a): Hernesto Fernando\n");
-
             }
+
             break;
         case 2:
             printf("Encargado(a): Jimmy Barrera\n");
@@ -488,30 +281,93 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
     char encontrar_nombre[50],encontrar_apellidos[50];
     int encontrar_rut=*rut;
     *encontrado=0;
-    char nombres_[]="Nombre:";
-    char apellidos_[]="Apellidos:";
-    char rut_[]="Rut:";
-    int bandera=0;
+
+    int numero_cuenta_encontrar;
     int i=0;
+    int bandera=0;
+    printf("ENCONTRE AUQI: %i\n",*encontrado);
 
 
-    if(archivo!=NULL) {
-        while(fscanf(archivo,"%s %s %s %s %s %i",nombres_,encontrar_nombre,apellidos_,encontrar_apellidos,rut_,&encontrar_rut)==6&&bandera==0&&i<1000) {
-            if(strcmp(encontrar_nombre,nombre)==0 && strcmp(encontrar_apellidos,apellidos)==0 &&  encontrar_rut== *rut) {
+
+    if(archivo!=NULL && *encontrado!=1) {
+        while(fscanf(archivo,"Cuenta: %i Nombre: %s Apellidos: %s Rut: %i\n",&numero_cuenta_encontrar,
+            encontrar_nombre,encontrar_apellidos,&encontrar_rut)==4 && bandera==0) {
+            if(numero_cuenta_encontrar==*numero_Cuenta) {
                 *encontrado=1;
                 bandera=1;
                 break;
             }
-            i++;
+
         }
 
     }
 
     fclose(archivo);
 }
+void mensaje_bienvenido(char *nombre, char *apellidos,int *rut,int *sucursal,int *numero_Cuenta) {
+    FILE *archivo;
 
+    switch (*sucursal) {
+        case 1:
+            archivo = fopen("Sucursal 1.txt","r");
+        if(archivo==NULL) {
+            archivo=fopen("Sucursal 1.txt","w");
+            fclose(archivo);
+        }
+
+        break;
+        case 2:
+            printf("Encargado(a): Jimmy Barrera\n");
+        archivo = fopen("Sucursal 2.txt","r");
+        if(archivo==NULL) {
+            archivo=fopen("Sucursal 2.txt","w");
+            fclose(archivo);
+        }
+        break;
+        case 3:
+            printf("Encargado(a): Juana Ashe\n");
+        archivo = fopen("Sucursal 3.txt","r");
+        if(archivo==NULL) {
+            archivo=fopen("Sucursal 3.txt","w");
+            fclose(archivo);
+        }
+        break;
+        case 4:
+            printf("Encargado(a): Maria Alarcon\n");
+        archivo = fopen("Sucursal 4.txt","r");
+        if(archivo==NULL) {
+            archivo=fopen("Sucursal 4.txt","w");
+            fclose(archivo);
+        }
+        break;
+        case 5:
+            printf("Encargado(a): Ester Castillo\n");
+        archivo = fopen("Sucursal 5.txt","r");
+        if(archivo==NULL) {
+            archivo=fopen("Sucursal 5.txt","w");
+            fclose(archivo);
+        }
+        break;
+    }
+    char encontrar_nombre[50],encontrar_apellidos[50];
+    int encontrar_rut=*rut;
+
+    int numero_cuenta_encontrar;
+    int i=0;
+    int bandera=0;
+
+    while(fscanf(archivo,"Cuenta: %i Nombre: %s Apellidos: %s Rut: %i\n",&numero_cuenta_encontrar,
+            encontrar_nombre,encontrar_apellidos,&encontrar_rut)==4 && bandera==0) {
+        if(numero_cuenta_encontrar==*numero_Cuenta) {
+            printf("Bienvenido(a) Estimado(a): %s %s (Rut: %i)\n", encontrar_nombre, encontrar_apellidos, encontrar_rut);
+            bandera=1;
+            break;
+        }
+
+            }
+}
 //------------------------REGISTRAR CUENTA SUCURSAL----------
-void registrar_cuenta_sucursal(char *nombre, char *apellidos, int *rut,int *sucursal) {
+void registrar_cuenta_sucursal(char nombre[], char apellidos[], int *rut,int *sucursal,int *numero_Cuenta) {
     FILE *archivo;
     switch (*sucursal) {
         case 1:
@@ -532,10 +388,17 @@ void registrar_cuenta_sucursal(char *nombre, char *apellidos, int *rut,int *sucu
 
     }
 
+
+
+    printf("Digite su Rut: ");
+    scanf("%i",rut);
+    getchar();
+
     char nombres_[]="Nombre:";
     char apellidos_[]="Apellidos:";
     char rut_[]="Rut:";
-    fprintf(archivo,"%s %s %s %s %s %i\n",nombres_,nombre,apellidos_,apellidos,rut_,*rut);
+    char cuenta_[]= "Cuenta:";
+    fprintf(archivo,"Cuenta: %i Nombre: %s Apellidos: %s Rut: %i\n",*numero_Cuenta,nombre,apellidos,*rut);
 
     fclose(archivo);
 
@@ -543,23 +406,12 @@ void registrar_cuenta_sucursal(char *nombre, char *apellidos, int *rut,int *sucu
 
 //------------------------RELLENAR DATOS----------
 
-void datos(int *encontrado,int *sucursal,char *nombre, char *apellidos,int  *rut ) {
+void datos(int *encontrado,int *sucursal,char *nombre, char *apellidos,int  *rut, int *numero_Cuenta) {
+    printf("Escriba su Numero de Cuenta: ");
+    scanf("%i",numero_Cuenta);
     printf("Ingrese su sucursal (1-5): ");
     scanf("%i", sucursal);
-
-    getchar();
-    printf("Escriba su nombre: ");
-    fgets(nombre, 50, stdin);
-    nombre[strcspn(nombre, "\n")] = '\0';
-
-    printf("Escriba sus apellidos: ");
-    fgets(apellidos, 50, stdin);
-    apellidos[strcspn(apellidos, "\n")] = '\0';
-    printf("Ingrese su Rut: (sin numeros ni digito verificador)");
-    scanf("%i", rut);
-    getchar();
-
-    encontrar_cuenta(nombre,apellidos,rut,sucursal,encontrado);
+    encontrar_cuenta(nombre,apellidos,rut,sucursal,encontrado,numero_Cuenta);
 }
 //------------------------VER TODAS LAS CUENTAS----------
 
@@ -569,8 +421,7 @@ void ver_cuentas(int *opcion,char *nombres,char *apellidos,int *encontrado,int *
     scanf("%i",opcion);
     switch (*opcion) {
         case 1:registrar_corriente(nombres,apellidos,rut,encontrado,sucursal,opcion);break;
-        case 2:registrar_ahorro(nombres,apellidos,rut,encontrado,sucursal,opcion );break;
-        case 3:registrar_vista(nombres,apellidos,rut,encontrado,sucursal,opcion);break;
     }
+    getchar();
 
 }
