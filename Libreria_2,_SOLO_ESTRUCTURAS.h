@@ -185,3 +185,54 @@ typedef struct sucursales {
     int rut;
     int interes;
 }Sucursal;
+//------------------------NODO:VISTA--------------------
+typedef struct nodo_sucursal {
+    Sucursal sucursal;
+    struct nodo *siguiente;
+}Nodo_S;
+typedef struct lista_s {
+    Nodo_S *primer_Elemento;
+}Lista_s;
+
+//-------------------------CREAR:CUENTA SUCURSAL----------------
+Lista_s *crearLista_Sucursal() {
+    Lista_s *l=(Lista_s*)malloc(sizeof(Lista_s)*1);
+    l->primer_Elemento=NULL;
+    return l;
+};
+
+
+//-------------------------CREAR NODO: VISTA-------
+Nodo_S* crearNodo_Sucursal(Sucursal s){
+    Nodo_S *n = (Nodo_S*)malloc(sizeof(Nodo_S));
+    n->sucursal= s;
+    n->siguiente = NULL ;
+    return n;
+}
+//------------------------AGREGAR AL FINAL: VISTA----------
+void agregar_final_sucursal(Lista_s *l, Sucursal s) {
+
+    Nodo_S *nuevoNodo = crearNodo_Sucursal(s);
+    if (l->primer_Elemento == NULL) {
+        l->primer_Elemento = nuevoNodo;
+    } else {
+        Nodo_S *aux = l->primer_Elemento;
+        while (aux->siguiente != NULL) {
+            aux = aux->siguiente;
+        }
+        aux->siguiente = nuevoNodo;
+    }
+}
+void imprimir_lista_s(Lista_s *l) {
+    if (l->primer_Elemento == NULL) {
+        printf("--> NULL\n");
+    } else {
+        Nodo_S* aux = l->primer_Elemento;
+        while (aux != NULL) {
+            printf("--> Nombre: %s\n", aux->sucursal.nombre);
+            aux = aux->siguiente;
+        }
+        printf("--> NULL\n");
+    }
+}
+

@@ -1,0 +1,3 @@
+Cuenta: 8 Tipo_Cuenta: 1 Sucursal: 1 Nombre: ma Apellidos: kk Rut: 1 Saldo: 300 Comision: 10000 Interes: 5 Estado: 1
+Cuenta: 2 Tipo_Cuenta: 2 Sucursal: 1 Nombre: ma Apellidos: kk Rut: 1 Saldo: 999999999 Comision: 100000 Interes: 25 Estado: 1
+Cuenta: 17 Tipo_Cuenta: 1 Sucursal: 1 Nombre: o Apellidos: a Rut: 22027050 Saldo: 30000 Comision: 10000 Interes: 5 Estado: 1
