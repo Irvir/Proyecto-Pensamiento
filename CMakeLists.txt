@@ -7,7 +7,7 @@ set(CMAKE_C_STANDARD 99)
 add_executable(Proyecto_Pensamiento
         main.c
         Libreria_Proyecto.h
-
+        "Registro de cuentas.h"
 
 
 )

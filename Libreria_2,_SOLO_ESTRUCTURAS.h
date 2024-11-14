@@ -10,7 +10,7 @@ typedef struct cuenta_corriente {
 typedef struct cuenta_ahorro {
     int estado;
     int numero_de_cuenta;
-    int saldo;
+    long saldo;
     int interes;
     int comision_mensual;
 }Ahorro;

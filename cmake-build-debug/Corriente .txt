@@ -1,0 +1,7 @@
+Sucursal: 1 Nombre:  Apellidos:  Rut: 1 Saldo: 300 Interes: 5 Comision: 10000
+Sucursal: 1 Nombre:  Apellidos: a
+ Rut: 0 Saldo: -492934800 Interes: 5 Comision: 10000
+Sucursal: 1 Nombre:  Apellidos: 
+ Rut: 1 Saldo: 300 Interes: 5 Comision: 10000
+Sucursal: 1 Nombre:  Apellidos: a
+ Rut: 0 Saldo: -391943824 Interes: 5 Comision: 10000

@@ -1,0 +1,3 @@
+Sucursal: 1 Nombre: mar Apellidos: tin Rut: 10 Saldo: 100000 Interes: 5 Comision: 10000 Estado: 1
+Sucursal: 1 Nombre: mar Apellidos: tin Rut: 20 Saldo: 100000 Interes: 5 Comision: 10000 Estado: 1
+Sucursal: 1 Nombre: k Apellidos: k Rut: 1 Saldo: 1000000 Interes: 15 Comision: 50000 Estado: 1

@@ -1,1 +1,0 @@
-Nombre: r Apellidos: t Rut: 7 Saldo: 30
