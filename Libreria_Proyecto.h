@@ -3,7 +3,6 @@
 #define regitrar_ahorro
 int verificar_saldo(int *saldo,int tipo_de_cuenta) {
     int activo;
-    printf("\nSALDO: %i",*saldo);
     switch (tipo_de_cuenta) {
         case 1:
             activo=1;
@@ -28,6 +27,9 @@ int verificar_saldo(int *saldo,int tipo_de_cuenta) {
     return activo;
 
 
+}
+int retornar_saldo(int *saldo) {
+    return *saldo-100000;
 }
 int interes(int *tipo_cuenta, int *saldo) {
     int interes=0;
@@ -60,7 +62,6 @@ int interes(int *tipo_cuenta, int *saldo) {
             }
         break;
     }
-    printf("||||||||||||%i",interes);
     return interes;
 }
 
@@ -220,10 +221,13 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
                         }
                     }
                     if(verificar_saldo(saldo,2)==1) {
+                        ahorro.saldo=*saldo-100000;
+
+                        printf("----------------------------------------El saldo es: %i",*saldo);
                         *activo=1;
                         *encontrado=1;
                         ahorro.estado=*activo;
-                        ahorro.saldo=*saldo;
+;
                         interes_final=interes(opcion,saldo);
                         comision_final=comision(opcion,saldo);
                         ahorro.interes=interes_final;
@@ -250,6 +254,7 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
                             }
                         }
                         if(verificar_saldo(saldo,2)==1) {
+                            *saldo=retornar_saldo(saldo);
                             *activo=1;
                             *encontrado=1;
                             ahorro.estado=*activo;
@@ -263,7 +268,7 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
                         break;
                 }
                 fprintf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i\n",
-                *numero_cuenta,*opcion,*sucursal,nombre_encontrar,apellidos_encontrar,rut_encontrar,ahorro.saldo,ahorro.comision_mensual,ahorro.interes,ahorro.estado);
+                *numero_cuenta,*opcion,*sucursal,nombre_encontrar,apellidos_encontrar,rut_encontrar,ahorro.saldo-100000,ahorro.comision_mensual,ahorro.interes,ahorro.estado);
 
 
 
@@ -274,7 +279,7 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
     }
 
     if(*encontrado==0) {
-        printf("Cuenta No Registrada");
+        printf("Cuenta No Registrada\n");
 
         printf("Ingresa tu saldo: \n");
         scanf("%i",saldo);
@@ -312,7 +317,7 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
                 if(verificar_saldo(saldo,2)==1) {
                     *activo=1;
                     ahorro.estado=*activo;
-                    ahorro.saldo=*saldo;
+                    ahorro.saldo=*saldo-100000;
                     interes_final=interes(opcion,saldo);
                     comision_final=comision(opcion,saldo);
                     ahorro.interes=interes_final;
@@ -327,15 +332,11 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
         fprintf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i\n",
             *numero_cuenta,*opcion,*sucursal,nombre,apellidos,*rut,ahorro.saldo,ahorro.comision_mensual,ahorro.interes,ahorro.estado);
     }
-    printf("\n|||||||||||||||EL NOMBRE ES :%s",nombre);
 
 
     imprimir_lista_a(a);
     fclose(archivo);
 }
-
-
-//------------------------REGISTRAR CUENTA VISTA----------
 
 
 
@@ -508,7 +509,28 @@ void registrar_cuenta_sucursal(char nombre[], char apellidos[], int *rut,int *su
     fclose(archivo);
 
 }
+int retirar(int saldo,int *tipo_cuenta,int monto) {
+    switch(*tipo_cuenta) {
+        case 1:
+            if(monto<saldo) {
+                saldo=saldo-monto;
+            }
 
+            break;
+        case 2:
+            if(monto>50000) {
+                saldo=saldo-monto;
+            }
+            break;
+        case 3:
+            if(saldo>0) {
+                saldo=saldo-monto;
+            }
+            break;
+    }
+    return saldo;
+
+}
 //------------------------RELLENAR DATOS----------
 
 void datos(int *encontrado,int *sucursal,char *nombre, char *apellidos,int  *rut, int *numero_Cuenta) {

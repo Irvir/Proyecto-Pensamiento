@@ -1,5 +1,8 @@
-Cuenta: 2 Nombre: Ma Apellidos: Em Rut: 30
-Cuenta: 1 Nombre: mar Apellidos: ti Rut: 20
-Cuenta: 300 Nombre: kk Apellidos: po Rut: 67
-Cuenta: 99 Nombre: po Apellidos: lo Rut: 98
-Cuenta: 150 Nombre: ke Apellidos: loke Rut: 300
+Cuenta: 1 Nombre: ma Apellidos: me Rut: 1
+Cuenta: 12 Nombre: ma Apellidos: me Rut: 12
+Cuenta: 3 Nombre: Marin Apellidos: AP Rut: 22027050
+Cuenta: 303003 Nombre: mk Apellidos: mk Rut: 1
+Cuenta: 39999 Nombre: mo Apellidos: ma Rut: 19
+Cuenta: 192 Nombre: mk Apellidos: ml Rut: 22027
+Cuenta: 182 Nombre: M Apellidos: A Rut: 2209
+Cuenta: 18 Nombre: ma Apellidos: le Rut: 20
