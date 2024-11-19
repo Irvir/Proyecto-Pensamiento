@@ -17,6 +17,7 @@ void menu(int opcion) {
     int encontrado;
     int *decision_ver_cuenta=(int *)malloc(sizeof(int)*1);
     int *estado= (int *)malloc(sizeof(int)*1);
+    int retiro;
 
     printf("Menu de opciones:\n1.Ver Cuenta\n2.Crear Cuenta\n3.Operacion de cuentas\n4.Simulacion de interes en el "
            "tiempo\n0.Salir\nEscriba su opcion:");
@@ -28,21 +29,7 @@ void menu(int opcion) {
             encontrar_cuenta(nombre,apellidos,&rut,&sucursal,&encontrado,numero_de_cuenta);
 
             if (encontrado == 0) {
-                printf("Estimado(a) Cliente su cuenta no se encuentra registrada en la Sucursal: %i.\n"
-                       "Desea registrarla?(1.Si / 2.No): ",sucursal);
-                scanf("%i", &decision_crear_cuenta);
-                getchar();
-                if (decision_crear_cuenta == 1) {
-                    printf("Escribe tu nombre: ");
-                    fgets(nombre, 50, stdin);
-                    nombre[strcspn(nombre, "\n")] = '\0';
-                    printf("Escribe tu apellido: ");
-                    fgets(apellidos, 50, stdin);
-                    apellidos[strcspn(apellidos, "\n")] = '\0';
-                    registrar_cuenta_sucursal(nombre,apellidos,&rut,&sucursal,numero_de_cuenta);
-                    ver_cuentas(decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal,estado,numero_de_cuenta);
-
-                }
+                printf("Estimado(a) Cliente su cuenta no se encuentra registrada en la Sucursal: %i.\n",sucursal);
             } else {
                 mensaje_bienvenido(nombre,apellidos,&rut,&sucursal,numero_de_cuenta);
                 ver_cuentas(decision_ver_cuenta,nombre,apellidos,&encontrado,&rut,&sucursal,estado,numero_de_cuenta);
@@ -109,8 +96,15 @@ void menu(int opcion) {
             scanf("%i", &opcion);
             datos(&encontrado,&sucursal,nombre,apellidos,&rut,numero_de_cuenta);
             encontrar_cuenta(nombre,apellidos,&rut,&sucursal,&encontrado,numero_de_cuenta);
+//-------------------------------------RETIRO-----------------------------------
             if (encontrado == 1) {
-                printf("Cuanto dinero desea retirar: ?");
+
+                printf("Cuanto dinero desea retirar?: ");
+                scanf("%i",&retiro);
+                retirar(nombre,apellidos,&rut,&sucursal,&opcion,estado,numero_de_cuenta,&retiro);
+            }
+            else {
+                printf("Error estimado usuario no se ");
             }
             break;
         case 4:break;
