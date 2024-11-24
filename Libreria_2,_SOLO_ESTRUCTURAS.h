@@ -4,6 +4,8 @@ typedef struct cuenta_corriente {
     int saldo;
     int interes;
     int comision_mensual;
+    int estado;
+    int giro;
 }Corriente;
 
 //Cuenta Ahorro
@@ -13,6 +15,7 @@ typedef struct cuenta_ahorro {
     long saldo;
     int interes;
     int comision_mensual;
+    int giro;
 }Ahorro;
 
 //Cuenta Vista
@@ -22,6 +25,7 @@ typedef struct cuenta_vista {
     int saldo;
     int interes;
     int comision_mensual;
+    int giro;
 }Vista;
 //------------------------NODO:CORRIENTE--------------------
 typedef struct nodo_corriente {
