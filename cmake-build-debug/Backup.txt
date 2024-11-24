@@ -1,0 +1,2 @@
+Cuenta: 1 Tipo_Cuenta: 1 Sucursal: 1 Nombre: ma Apellidos: r Rut: 1 Saldo: 3600 Comision: 10000 Interes: 5 Estado: 1 Giros: -3
+Cuenta: 23 Tipo_Cuenta: 3 Sucursal: 1 Nombre: mar Apellidos: tin Rut: 22 Saldo: 3300 Comision: 10000 Interes: 5 Estado: 1 Giros: -10
