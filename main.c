@@ -18,8 +18,14 @@ void menu(int opcion) {
     int *encontrado=(int *)malloc(sizeof(int));
     int *decision_ver_cuenta=(int *)malloc(sizeof(int)*1);
     int *estado= (int *)malloc(sizeof(int)*1);
-    int retiro;
-    int deposito;
+    int *retiro=(int *)malloc(sizeof(int));
+    int *deposito=(int *)malloc(sizeof(int));
+
+    char nombre2[50],apellidos2[50];
+    int *rut2=(int*)malloc(sizeof(int));
+    int sucursal2;
+    int *encontrado2=(int*)malloc(sizeof(int));
+    int *numero_de_cuenta2=(int*)malloc(sizeof(int));
 
     printf("Menu de opciones:\n1.Ver Cuenta\n2.Crear Cuenta\n3.Operacion de cuentas\n4.Simulacion de interes en el "
            "tiempo\n0.Salir\nEscriba su opcion:");
@@ -83,7 +89,6 @@ void menu(int opcion) {
                     printf("Ingrese su rut:");
                     scanf("%i",rut);
                     datos(encontrado,&sucursal,nombre,apellidos,rut,numero_de_cuenta);
-//----------------------------------------TRABAJANDO AQUI----------------------------------------
                     if (*encontrado == 0) {
                         printf("-----%i",*encontrado);
                         printf("Estimado(a) %s %s, se ha registrado la cuenta en la sucursal: %i.\n", nombre, apellidos, sucursal);
@@ -119,24 +124,58 @@ void menu(int opcion) {
 
             datos(encontrado,&sucursal,nombre,apellidos,rut,numero_de_cuenta);
             encontrar_cuenta(nombre,apellidos,rut,&sucursal,encontrado,numero_de_cuenta);
-//-------------------------------------RETIRO-----------------------------------
             if (*encontrado == 1) {
                 switch (opcion_operaciones) {
                     case 1:
                     printf("Cuanto dinero desea retirar?: ");
-                    scanf("%i",&retiro);
+                    scanf("%i",retiro);
                     getchar();
                     printf("Digite su tipo de cuenta(1.Ahorro/2.Corriente/3.Vista)\nOpcion: ");
                     scanf("%i",&opcion);
-                    retirar(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,&retiro);
+                    retirar(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,retiro);
                     break;
                     case 2:
                         printf("Cuanto dinero desea depositar?: ");
-                        scanf("%i",&deposito);
+                        scanf("%i",deposito);
                         getchar();
                         printf("Digite su tipo de cuenta(1.Ahorro/2.Corriente/3.Vista)\nOpcion: ");
                         scanf("%i",&opcion);
-                        depositar(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,&deposito);
+                        depositar(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,deposito);
+                        break;
+//-----------------------TRABAJANDO AQUÍ-------------------------------------
+                    case 3:
+
+                        getchar();
+                        printf("Digite el nombre 2: ");
+                        fgets(nombre2, 50, stdin);
+                        nombre2[strcspn(nombre2, "\n")] = '\0';
+                        printf("Digite los apellidos 2:");
+
+                        fgets(apellidos2, 50, stdin);
+                        apellidos2[strcspn(apellidos2, "\n")] = '\0';
+                        printf("Digite el rut 2:");
+                        scanf("%i",rut2);
+                        printf("Digite su tipo de cuenta(1.Ahorro/2.Corriente/3.Vista)\nOpcion: ");
+                        scanf("%i",&opcion);
+                        datos(encontrado2,&sucursal2,nombre2,apellidos2,rut2,numero_de_cuenta2);
+                        if(*encontrado2 == 1) {
+                            getchar();
+                            printf("Cuanto dinero desea transferir?: ");
+                            scanf("%i",retiro);
+                            retirar(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,retiro);
+                            *deposito = *retiro;
+
+                            depositar(nombre2,apellidos2,rut2,&sucursal2,&opcion,estado,numero_de_cuenta2,deposito);
+
+
+                                                      
+                        }else {
+                            printf("%i--",*encontrado2);
+
+                            printf("No se encontro");
+                        }
+
+
                         break;
                 }
 

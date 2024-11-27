@@ -206,7 +206,7 @@ void depositar(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, 
     }
 
 
-    printf("Operacion Exitosa!\nNuevo Saldo: %i",saldo_encontrar);
+    printf("--\nOperacion Exitosa!\nNuevo Saldo: %i",saldo_encontrar);
 
     fclose(archivo);
     fclose(archivo2);
@@ -370,53 +370,14 @@ void transferir(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion,
            &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
            &interes_encontrar,&activo_encontrar,&giro_encontrar)==11) {
         //ENCUENTRA LA CUENTA
+        int encontrado=0;
         if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion){
-            if(tipo_cuenta_encontrar == 3) {
-                if(giro_encontrar<=0) {
-                    printf("Debido a su cantidad de giros: %i (4 giros gratuitos)\nSe le cobrara 400 pesos a su sueldo\n",giro_encontrar);
-                    saldo_encontrar=saldo_encontrar-400;
-                }
+            encontrado=1;
+                    break;
             }
-            switch (*opcion) {
-                case 1:
-                        saldo_encontrar=saldo_encontrar+*deposito;
-                        activo_encontrar=1;
-                    break;
-                case 2:
-                        saldo_encontrar=saldo_encontrar+*deposito;
-                        activo_encontrar=1;
-                    break;
-                case 3:
-                    if(verificar_saldo(&saldo_encontrar,*opcion)==0) {
-                        printf("Lamentablemente su deposito es demasiado grande debido al tipo de cuenta\n"
-                               "Recuerde que el saldo limite es de 2.5 millones de pesos!");
-                        activo_encontrar=1;
-                    }else {
-                        saldo_encontrar=saldo_encontrar+*deposito;
-
-                        activo_encontrar=1;
-                    }
-                    break;
-
-
-            }
-            fprintf(archivo2, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar, giro_encontrar-1);
-            bandera=1;
-        }
-        //NO ENCUENTRA LA CUENTA
-        else {
-            fprintf(archivo2, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar,giro_encontrar);
-
-        }
-
-        i++;
     }
-    fclose(archivo2);
     fclose(archivo);
+    /*
     archivo2=fopen("Backup.txt","r");
     archivo=fopen("Cuentas.txt","w");
     bandera=0;
@@ -442,6 +403,7 @@ void transferir(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion,
 
     fclose(archivo);
     fclose(archivo2);
+    */
 }
 
 //------------------------REGISTRAR CUENTA AHORRO----------
@@ -855,12 +817,15 @@ void imprimir_datos_cuentas(char *nombre, char *apellidos,int *rut,int *sucursal
 
 
 void datos(int *encontrado,int *sucursal,char *nombre, char *apellidos,int  *rut, int *numero_Cuenta) {
+
+
     printf("Escriba su Numero de Cuenta: ");
     scanf("%i",numero_Cuenta);
     printf("Ingrese su sucursal (1-5): ");
     scanf("%i", sucursal);
     encontrar_cuenta(nombre,apellidos,rut,sucursal,encontrado,numero_Cuenta);
 }
+
 //------------------------VER TODAS LAS CUENTAS----------
 
 void ver_cuentas(int *opcion,char *nombres,char *apellidos,int *encontrado,int *rut, int *sucursal, int *estado,int *numero_cuenta) {
