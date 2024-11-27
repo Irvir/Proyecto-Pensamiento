@@ -13,6 +13,7 @@ void menu(int opcion) {
     char nombre[50];
     char apellidos[50];
     int *rut=(int *)malloc(sizeof(int));
+
     int *numero_de_cuenta=(int *)malloc(sizeof(int));
     int decision_crear_cuenta;
     int *encontrado=(int *)malloc(sizeof(int));
@@ -33,13 +34,7 @@ void menu(int opcion) {
     getchar();
     switch (opcion) {
         case 1:
-            printf("Escribe tu nombre: ");
-            fgets(nombre, 50, stdin);
-            nombre[strcspn(nombre, "\n")] = '\0';
 
-            printf("Escribe tu apellido: ");
-            fgets(apellidos, 50, stdin);
-            apellidos[strcspn(apellidos, "\n")] = '\0';
             printf("Ingrese su rut:");
             scanf("%i",rut);
             datos(encontrado,&sucursal,nombre,apellidos,rut,numero_de_cuenta);
@@ -61,31 +56,20 @@ void menu(int opcion) {
 
             switch (opcion) {
                 case 1:
-                    printf("Escribe tu nombre: ");
-                    fgets(nombre, 50, stdin);
-                    nombre[strcspn(nombre, "\n")] = '\0';
-
-                    printf("Escribe tu apellido: ");
-                    fgets(apellidos, 50, stdin);
-                    apellidos[strcspn(apellidos, "\n")] = '\0';
+                    printf("Ingrese su rut:");
+                    scanf("%i",rut);
                     datos(encontrado,&sucursal,nombre,apellidos,rut,numero_de_cuenta);
                     encontrar_cuenta(nombre,apellidos,rut,&sucursal,encontrado,numero_de_cuenta);
-                    if (encontrado == 0) {
-                        printf("Estimado(a) %s %s, se ha registrado la cuenta en la sucursal: %i.\n", nombre, apellidos, sucursal);
+                    if (*encontrado == 0) {
                         registrar_cuenta_sucursal(nombre,apellidos,rut,&sucursal,numero_de_cuenta);
+                        printf("Estimado(a) %s %s, se ha registrado la cuenta en la sucursal: %i.\n", nombre, apellidos, sucursal);
+
                     } else {
-                        printf("Error! Estimado(a): %s %s (Rut: %i), su cuenta ya está registrada\n",nombre , apellidos, rut);
+
+                        printf("Error! Estimado(a): %s %s (Rut: %i), su cuenta ya está registrada\n",nombre , apellidos, *rut);
                     }
                     break;
                 case 2:
-                    printf("Primero para registrarse a una Cuenta necesita estar registrado a una sucursal\n");
-                    printf("Escribe tu nombre: ");
-                    fgets(nombre, 50, stdin);
-                    nombre[strcspn(nombre, "\n")] = '\0';
-
-                    printf("Escribe tu apellido: ");
-                    fgets(apellidos, 50, stdin);
-                    apellidos[strcspn(apellidos, "\n")] = '\0';
                     printf("Ingrese su rut:");
                     scanf("%i",rut);
                     datos(encontrado,&sucursal,nombre,apellidos,rut,numero_de_cuenta);
@@ -112,27 +96,21 @@ void menu(int opcion) {
             printf("Que operacion desea realizar?\n1.Retiro\n2.Deposito\n3.Transferencia de Saldo\n4.Verificar Saldo\nOpcion:");
             scanf("%i", &opcion_operaciones);
             getchar();
-            printf("Escribe tu nombre: ");
-            fgets(nombre, 50, stdin);
-            nombre[strcspn(nombre, "\n")] = '\0';
-
-            printf("Escribe tu apellido: ");
-            fgets(apellidos, 50, stdin);
-            apellidos[strcspn(apellidos, "\n")] = '\0';
             printf("Ingrese su rut:");
             scanf("%i",rut);
 
             datos(encontrado,&sucursal,nombre,apellidos,rut,numero_de_cuenta);
-            encontrar_cuenta(nombre,apellidos,rut,&sucursal,encontrado,numero_de_cuenta);
+
             if (*encontrado == 1) {
                 switch (opcion_operaciones) {
                     case 1:
-                    printf("Cuanto dinero desea retirar?: ");
-                    scanf("%i",retiro);
-                    getchar();
-                    printf("Digite su tipo de cuenta(1.Ahorro/2.Corriente/3.Vista)\nOpcion: ");
-                    scanf("%i",&opcion);
-                    retirar(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,retiro);
+                        printf("Cuanto dinero desea retirar?: ");
+                        scanf("%i",retiro);
+                        getchar();
+                        printf("Digite su tipo de cuenta (1.Ahorro/2.Corriente/3.Vista)\nOpcion: ");
+                        scanf("%i",&opcion);
+                        retirar(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,retiro);
+
                     break;
                     case 2:
                         printf("Cuanto dinero desea depositar?: ");
@@ -142,21 +120,13 @@ void menu(int opcion) {
                         scanf("%i",&opcion);
                         depositar(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,deposito);
                         break;
-//-----------------------TRABAJANDO AQUÍ-------------------------------------
                     case 3:
-
                         getchar();
-                        printf("Digite el nombre 2: ");
-                        fgets(nombre2, 50, stdin);
-                        nombre2[strcspn(nombre2, "\n")] = '\0';
-                        printf("Digite los apellidos 2:");
-
-                        fgets(apellidos2, 50, stdin);
-                        apellidos2[strcspn(apellidos2, "\n")] = '\0';
-                        printf("Digite el rut 2:");
-                        scanf("%i",rut2);
-                        printf("Digite su tipo de cuenta(1.Ahorro/2.Corriente/3.Vista)\nOpcion: ");
+                        printf("Digite su tipo de cuenta ---(1.Ahorro/2.Corriente/3.Vista)\nOpcion: ");
                         scanf("%i",&opcion);
+                        printf("Ahora Digite las credenciales de las cuentas a transferir\n");
+                        printf("Ingrese su rut:");
+                        scanf("%i",rut2);
                         datos(encontrado2,&sucursal2,nombre2,apellidos2,rut2,numero_de_cuenta2);
                         if(*encontrado2 == 1) {
                             getchar();
@@ -166,9 +136,6 @@ void menu(int opcion) {
                             *deposito = *retiro;
 
                             depositar(nombre2,apellidos2,rut2,&sucursal2,&opcion,estado,numero_de_cuenta2,deposito);
-
-
-                                                      
                         }else {
                             printf("%i--",*encontrado2);
 

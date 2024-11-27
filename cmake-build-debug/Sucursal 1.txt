@@ -1,2 +1,3 @@
 Cuenta: 1 Nombre: ma Apellidos: r Rut: 1
 Cuenta: 23 Nombre: mar Apellidos: tin Rut: 22
+Cuenta: 32 Nombre: ma Apellidos: r Rut: 2

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "Libreria_2,_SOLO_ESTRUCTURAS.h"
+
 #define regitrar_ahorro
 int verificar_saldo(int *saldo,int tipo_de_cuenta) {
     int activo;
@@ -130,7 +131,7 @@ void depositar(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, 
     Nodo_A *nodo_a;
     Nodo_V *nodo_v;
     int i=0;
-
+    int n=0;
     archivo=fopen("Cuentas.txt","r");
     archivo2=fopen("Backup.txt","w");
     //----------------------RECORRE ARCHIVO 1
@@ -139,6 +140,7 @@ void depositar(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, 
            &interes_encontrar,&activo_encontrar,&giro_encontrar)==11) {
         //ENCUENTRA LA CUENTA
         if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion){
+            n=saldo_encontrar;
             if(tipo_cuenta_encontrar == 3) {
                 if(giro_encontrar<=0) {
                     printf("Debido a su cantidad de giros: %i (4 giros gratuitos)\nSe le cobrara 400 pesos a su sueldo\n",giro_encontrar);
@@ -206,7 +208,8 @@ void depositar(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, 
     }
 
 
-    printf("--\nOperacion Exitosa!\nNuevo Saldo: %i",saldo_encontrar);
+    printf("DESPOSITO-Operacion Exitosa!\nNuevo Saldo: %i",n+*deposito);
+
 
     fclose(archivo);
     fclose(archivo2);
@@ -232,7 +235,7 @@ void retirar(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, in
     Nodo_A *nodo_a;
     Nodo_V *nodo_v;
     int i=0;
-
+    int n;
     archivo=fopen("Cuentas.txt","r");
     archivo2=fopen("Backup.txt","w");
     //----------------------RECORRE ARCHIVO 1
@@ -241,6 +244,7 @@ void retirar(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, in
            &interes_encontrar,&activo_encontrar,&giro_encontrar)==11) {
         //ENCUENTRA LA CUENTA
         if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion){
+            n=saldo_encontrar;
             if(tipo_cuenta_encontrar == 3) {
                 if(giro_encontrar<=0) {
                     printf("Debido a su cantidad de giros: %i (4 giros gratuitos)\nSe le cobrara 400 pesos a su sueldo\n",giro_encontrar);
@@ -333,84 +337,16 @@ void retirar(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, in
     }
 
 
-    printf("Operacion Exitosa!\nNuevo Saldo: %i",saldo_encontrar);
+    printf("RETIRAR-Operacion Exitosa!\nNuevo Saldo: %i",n-*retiro);
 
     fclose(archivo);
     fclose(archivo2);
-}
-//------------------------TRANSFERENCIA-------------------
-void transferir(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, int *estado,int *numero_cuenta, int *deposito) {
-    char nombre2[50],apellidos2[50];
-    int sucursal2;
-    FILE *archivo;
-    FILE *archivo2;
-
-
-    int numero_cuenta_encontrar;
-    int sucursal_encontrar;
-    char nombre_encontrar[50];
-    char apellidos_encontrar[50];
-    int *encontrar_rut=(int *)malloc(sizeof(int)*10);
-    int bandera=0;
-
-    int rut_encontrar,tipo_cuenta_encontrar,comision_encontrar,interes_encontrar;
-    int saldo_encontrar = 0;
-    int activo_encontrar = 0;
-    int giro_encontrar = 0;
-    int verificarSaldo;
-    Nodo_C *nodo_c;
-    Nodo_A *nodo_a;
-    Nodo_V *nodo_v;
-    int i=0;
-
-    archivo=fopen("Cuentas.txt","r");
-    archivo2=fopen("Backup.txt","w");
-    //----------------------RECORRE ARCHIVO 1
-    while (fscanf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-           &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
-           &interes_encontrar,&activo_encontrar,&giro_encontrar)==11) {
-        //ENCUENTRA LA CUENTA
-        int encontrado=0;
-        if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion){
-            encontrado=1;
-                    break;
-            }
-    }
-    fclose(archivo);
-    /*
-    archivo2=fopen("Backup.txt","r");
-    archivo=fopen("Cuentas.txt","w");
-    bandera=0;
-    while (fscanf(archivo2,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-           &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
-           &interes_encontrar,&activo_encontrar,&giro_encontrar)==11 ) {
-        if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion) {
-            fprintf(archivo, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar,giro_encontrar);
-            bandera=1;
-        }else {
-            fprintf(archivo, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar,giro_encontrar);
-
-        }
-
-    }
-
-
-    printf("Operacion Exitosa!\nNuevo Saldo: %i",saldo_encontrar);
-
-    fclose(archivo);
-    fclose(archivo2);
-    */
 }
 
 //------------------------REGISTRAR CUENTA AHORRO----------
 void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal,int *opcion, int *estado,int *numero_cuenta){
     FILE *archivo;
     Sucursal sucursal_;
-    Lista_s *s=crearLista_Sucursal();
 
     //COSAS A ENCONTRAR PARA ARCHIVOS
     char nombre_encontrar[50],apellidos_encontrar[50];
@@ -430,9 +366,7 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
     int bandera=0;
     int cuenta_a_encontrar;
     int verificar;
-    Lista_c *c=crearLista_Corriente();
-    Lista_a *a=crearLista_Ahorro();
-    Lista_v *v=crearLista_Vista();
+¿
     int giros_encontrar;
     archivo=fopen("Cuentas.txt","a+");
     switch (*opcion) {
@@ -655,7 +589,7 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
         char nombre_encontrar[50], apellidos_encontrar[50];
         while (fscanf(archivo, "Cuenta: %i Nombre: %s Apellidos: %s Rut: %i\n",
                   &cuenta_encontrar, nombre_encontrar, apellidos_encontrar, &rut_encontrar) == 4 && bandera==0) {
-            if ( *numero_Cuenta == cuenta_encontrar &&  *rut==rut_encontrar && strcmp(nombre,nombre_encontrar)==0 && strcmp(apellidos,apellidos_encontrar)==0) {
+            if ( *numero_Cuenta == cuenta_encontrar && *rut==rut_encontrar) {
                 *encontrado = 1;
                 *numero_Cuenta = cuenta_encontrar;
                 bandera=1;
@@ -750,8 +684,14 @@ void registrar_cuenta_sucursal(char nombre[], char apellidos[], int *rut,int *su
             break;
 
     }
+    getchar();
+    printf("Escribe tu nombre: ");
+    fgets(nombre, 50, stdin);
+    nombre[strcspn(nombre, "\n")] = '\0';
 
-
+    printf("Escribe tu apellido: ");
+    fgets(apellidos, 50, stdin);
+    apellidos[strcspn(apellidos, "\n")] = '\0';
     fprintf(archivo,"Cuenta: %i Nombre: %s Apellidos: %s Rut: %i\n",*numero_Cuenta,nombre,apellidos,*rut);
 
     fclose(archivo);
@@ -787,7 +727,7 @@ void imprimir_datos_cuentas(char *nombre, char *apellidos,int *rut,int *sucursal
         char nombre_encontrar[50], apellidos_encontrar[50];
         while (fscanf(archivo, "Cuenta: %i Nombre: %s Apellidos: %s Rut: %i\n",
                   &cuenta_encontrar, nombre_encontrar, apellidos_encontrar, &rut_encontrar) == 4 && bandera==0) {
-            if ( *numero_Cuenta == cuenta_encontrar &&  *rut==rut_encontrar && strcmp(nombre,nombre_encontrar)==0 && strcmp(apellidos,apellidos_encontrar)==0) {
+            if ( *numero_Cuenta == cuenta_encontrar &&  *rut==rut_encontrar) {
                 printf("INFORMACION DE LA CUENTA\nNombre: %s. \nApellidos: %s.\n Rut: %i.\nNumero de cuenta:%i.\n",nombre_encontrar,apellidos_encontrar,rut_encontrar,cuenta_encontrar);
                 bandera=1;
                 break;
@@ -798,19 +738,27 @@ void imprimir_datos_cuentas(char *nombre, char *apellidos,int *rut,int *sucursal
     int tipo_cuenta_encontrar,sucursal_encontrar,interes_encontrar,activo_encontrar,saldo_encontrar,comision_encontrar,giros_encontrar;
     bandera=0;
     char activo[50];
-
+    int *encontrado_=(int*)malloc(sizeof(int));
     archivo=fopen("Cuentas.txt","r");
     while (fscanf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
             &cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
             &interes_encontrar,&activo_encontrar,&giros_encontrar)==11 && bandera==0) {
+        *encontrado_=0;
         if(*numero_Cuenta==cuenta_encontrar && tipo_cuenta_encontrar==*tipo_cuenta && sucursal_encontrar==*sucursal) {
             if(activo_encontrar==0) {
+
                 strcpy(activo,"Inactivo");
             }else{strcat(activo,"Activo");}
-            printf("Saldo: %i.\nComision: %i.\nInteres: %i.\nEstado: %s.\n",saldo_encontrar,comision_encontrar,interes_encontrar,activo);
-            bandera=1;
+            *encontrado_=1;
         }
     }
+    if(*encontrado_==0) {
+        printf("Estimado Cliente usted no tiene este tipo de cuenta en esta sucursal");
+    }else {
+        printf("Saldo: %i.\nComision: %i.\nInteres: %i.\nEstado: %s.\n",saldo_encontrar,comision_encontrar,interes_encontrar,activo);
+        bandera=1;
+    }
+    printf("%i",activo_encontrar);
     fclose(archivo);
 
 }
