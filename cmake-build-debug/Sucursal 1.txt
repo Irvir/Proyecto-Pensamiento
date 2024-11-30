@@ -1,3 +1,7 @@
 Cuenta: 1 Nombre: ma Apellidos: r Rut: 1
 Cuenta: 23 Nombre: mar Apellidos: tin Rut: 22
 Cuenta: 32 Nombre: ma Apellidos: r Rut: 2
+Cuenta: 10 Nombre: mak Apellidos: ke Rut: 10
+Cuenta: 1 Nombre: ma Apellidos: l Rut: 22
+Cuenta: 2 Nombre: mk Apellidos: lk Rut: 30
+Cuenta: 2 Nombre: mk Apellidos: mk Rut: 99

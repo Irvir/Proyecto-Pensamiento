@@ -74,7 +74,7 @@ void menu(int opcion) {
                     scanf("%i",rut);
                     datos(encontrado,&sucursal,nombre,apellidos,rut,numero_de_cuenta);
                     if (*encontrado == 0) {
-                        printf("-----%i",*encontrado);
+                        printf("-----%i\n",*encontrado);
                         printf("Estimado(a) %s %s, se ha registrado la cuenta en la sucursal: %i.\n", nombre, apellidos, sucursal);
                         registrar_cuenta_sucursal(nombre,apellidos,rut,&sucursal,numero_de_cuenta);
                         ver_cuentas(decision_ver_cuenta,nombre,apellidos,encontrado,rut,&sucursal,estado,numero_de_cuenta);
