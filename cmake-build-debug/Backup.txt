@@ -1,3 +1,6 @@
-Cuenta: 1 Tipo_Cuenta: 1 Sucursal: 1 Nombre: ma Apellidos: r Rut: 1 Saldo: 5100 Comision: 10000 Interes: 5 Estado: 1 Giros: -12
-Cuenta: 23 Tipo_Cuenta: 3 Sucursal: 1 Nombre: mar Apellidos: tin Rut: 22 Saldo: 2600 Comision: 10000 Interes: 5 Estado: 1 Giros: -11
+Cuenta: 1 Tipo_Cuenta: 1 Sucursal: 1 Nombre: ma Apellidos: r Rut: 1 Saldo: 5400 Comision: 10000 Interes: 5 Estado: 1 Giros: -13
+Cuenta: 23 Tipo_Cuenta: 3 Sucursal: 1 Nombre: mar Apellidos: tin Rut: 22 Saldo: 1900 Comision: 10000 Interes: 5 Estado: 1 Giros: -12
 Cuenta: 211 Tipo_Cuenta: 3 Sucursal: 1 Nombre: po Apellidos: po Rut: 222 Saldo: 30000 Comision: 10000 Interes: 5 Estado: 1 Giros: 4
+Cuenta: 99 Tipo_Cuenta: 1 Sucursal: 1 Nombre: owo Apellidos: owo Rut: 99 Saldo: 30000 Comision: 10000 Interes: 5 Estado: 1 Giros: -1
+Cuenta: 100 Tipo_Cuenta: 1 Sucursal: 1 Nombre: uwu Apellidos: uwu Rut: 100 Saldo: 30000 Comision: 10000 Interes: 5 Estado: 1 Giros: -1
+Cuenta: 3 Tipo_Cuenta: 1 Sucursal: 2 Nombre: uwu Apellidos: uwu Rut: 3 Saldo: 29700 Comision: 10000 Interes: 5 Estado: 1 Giros: -2

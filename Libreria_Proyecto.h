@@ -41,6 +41,52 @@ typedef struct sucursales {
     int numero_de_cuenta;
 }Sucursal;
 
+void encontrar_interes(char *nombre, char *apellidos, int *rut, int *sucursal, int *opcion, int *estado, int *numero_cuenta) {
+    FILE *archivo;
+    int numero_cuenta_encontrar, sucursal_encontrar, rut_encontrar;
+    int tipo_cuenta_encontrar, comision_encontrar, interes_encontrar;
+    int saldo_encontrar = 0, activo_encontrar = 0, giro_encontrar = 0;
+    char nombre_encontrar[50], apellidos_encontrar[50];
+    int bandera = 0;
+
+    int interes_final = 0, tiempo = 0;
+    int *saldo=(int *)malloc(sizeof(int));
+    printf("Seleccion su tipo de Cuenta (1.Corriente/2.Ahorro/3.Vista): ");
+    scanf("%i",opcion);
+    printf("Cuanto tiempo desea ver su interes? (en meses): ");
+    scanf("%i", &tiempo);
+
+    archivo = fopen("Cuentas.txt", "r");
+    if (archivo == NULL) {
+        printf("Error al abrir el archivo.\n");
+        return;
+    }
+
+    while (fscanf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
+        &numero_cuenta_encontrar, &tipo_cuenta_encontrar, &sucursal_encontrar, nombre_encontrar, apellidos_encontrar,
+        &rut_encontrar, &saldo_encontrar, &comision_encontrar, &interes_encontrar, &activo_encontrar, &giro_encontrar) == 11&&bandera==0) {
+        if (*numero_cuenta == numero_cuenta_encontrar &&  *opcion==tipo_cuenta_encontrar) {
+            interes_final = interes_encontrar;
+            *saldo = saldo_encontrar;
+            bandera = 1;
+            break;
+        }else {
+            bandera = 0;
+        }
+        }
+
+    fclose(archivo);
+
+    if (bandera==0) {
+        printf("Cuenta no encontrada.\n");
+        return;
+    }
+
+    int monto_final = *saldo + ((*saldo) * interes_final * tiempo) / 100;
+
+    printf("Su saldo es: %i\n",*saldo);
+    printf("El saldo final es: %i en %i meses\n", monto_final, tiempo);
+}
 
 int verificar_saldo(int *saldo,int tipo_de_cuenta) {
     int activo;
@@ -90,7 +136,17 @@ int interes(int *tipo_cuenta, int *saldo) {
                 interes = 25;
             }
         break;
-        case 2:  // Cuenta Ahorro
+        case 2:
+            if (*saldo <= 150000) {
+                interes = 5;
+            } else if (*saldo > 150000 && *saldo < 600000) {
+                interes = 10;
+            } else if (*saldo >= 600000 && *saldo < 1500000) {
+                interes = 15;
+            } else {
+                interes = 25;
+            }
+            // Cuenta Ahorro
         case 3:  // Cuenta Vista
             if (*saldo <= 150000) {
                 interes = 5;
@@ -129,6 +185,21 @@ int comision(int *tipo_cuenta, int *saldo) {
             }
         break;
         case 2:
+            if (*saldo <= 150000) {
+                comision = 10000;
+                vista.comision_mensual = comision;
+
+            } else if (*saldo > 150000 && *saldo < 600000) {
+                comision = 20000;
+                vista.comision_mensual = comision;
+            } else if (*saldo >= 600000 && *saldo < 1500000) {
+                comision = 50000;
+                vista.comision_mensual = comision;
+            } else {
+                comision = 100000;
+                vista.comision_mensual = comision;
+            }
+        break;
             // Cuenta Ahorro
         case 3:  // Cuenta Vista
             if (*saldo <= 150000) {
@@ -151,277 +222,189 @@ int comision(int *tipo_cuenta, int *saldo) {
 }
 
 //------------------------DEPOSITO------------------------
-void depositar(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, int *estado,int *numero_cuenta, int *deposito) {
+void depositar(char *nombre, char *apellidos, int *rut, int *sucursal, int *opcion, int *estado, int *numero_cuenta, int *deposito) {
     FILE *archivo;
     FILE *archivo2;
-
 
     int numero_cuenta_encontrar;
     int sucursal_encontrar;
     char nombre_encontrar[50];
     char apellidos_encontrar[50];
-    int *encontrar_rut=(int *)malloc(sizeof(int)*10);
-    int bandera=0;
+    int *encontrar_rut = (int *)malloc(sizeof(int) * 10);
+    int bandera = 0;
 
-    int rut_encontrar,tipo_cuenta_encontrar,comision_encontrar,interes_encontrar;
+    int rut_encontrar, tipo_cuenta_encontrar, comision_encontrar, interes_encontrar;
     int saldo_encontrar = 0;
     int activo_encontrar = 0;
     int giro_encontrar = 0;
     int verificarSaldo;
-    int i=0;
-    int n=0;
-    archivo=fopen("Cuentas.txt","r");
-    archivo2=fopen("Backup.txt","w");
-    //----------------------RECORRE ARCHIVO 1
-    while (fscanf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-           &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
-           &interes_encontrar,&activo_encontrar,&giro_encontrar)==11) {
-        //ENCUENTRA LA CUENTA
-        if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion){
-            n=saldo_encontrar;
-            if(tipo_cuenta_encontrar == 3) {
-                if(giro_encontrar<=0) {
-                    printf("Debido a su cantidad de giros: %i (4 giros gratuitos)\nSe le cobrara 400 pesos a su sueldo\n",giro_encontrar);
-                    saldo_encontrar=saldo_encontrar-400;
+    int i = 0;
+    int n = 0;
+    archivo = fopen("Cuentas.txt", "r");
+    archivo2 = fopen("Backup.txt", "w");
+
+    while (fscanf(archivo, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
+                  &numero_cuenta_encontrar, &tipo_cuenta_encontrar, &sucursal_encontrar, nombre_encontrar, apellidos_encontrar, &rut_encontrar, &saldo_encontrar, &comision_encontrar,
+                  &interes_encontrar, &activo_encontrar, &giro_encontrar) == 11) {
+        if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion) {
+            n = saldo_encontrar;
+            if (tipo_cuenta_encontrar == 3) {
+                if (giro_encontrar < 0) {
+                    printf("Debido a su cantidad de giros: %i (4 giros gratuitos)\nSe le cobrará 400 pesos a su saldo\n", giro_encontrar);
+                    saldo_encontrar -= 400;
                 }
             }
             switch (*opcion) {
                 case 1:
-                        saldo_encontrar=saldo_encontrar+*deposito;
-                        activo_encontrar=1;
-                    break;
                 case 2:
-                        saldo_encontrar=saldo_encontrar+*deposito;
-                        activo_encontrar=1;
-                    break;
                 case 3:
-                    if(verificar_saldo(&saldo_encontrar,*opcion)==0) {
+                    if (*opcion == 3 && verificar_saldo(&saldo_encontrar, *opcion) == 0) {
                         printf("Lamentablemente su deposito es demasiado grande debido al tipo de cuenta\n"
                                "Recuerde que el saldo limite es de 2.5 millones de pesos!");
-                        activo_encontrar=1;
-                    }else {
-                        saldo_encontrar=saldo_encontrar+*deposito;
-
-                        activo_encontrar=1;
+                    } else {
+                        saldo_encontrar += *deposito;
+                        activo_encontrar = 1;
                     }
                     break;
-
-
             }
             fprintf(archivo2, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar, giro_encontrar-1);
-            bandera=1;
-        }
-        //NO ENCUENTRA LA CUENTA
-        else {
+                    numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
+                    saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar, giro_encontrar - 1);
+            bandera = 1;
+        } else {
             fprintf(archivo2, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar,giro_encontrar);
-
+                    numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
+                    saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar, giro_encontrar);
         }
 
         i++;
     }
     fclose(archivo2);
     fclose(archivo);
-    archivo2=fopen("Backup.txt","r");
-    archivo=fopen("Cuentas.txt","w");
-    bandera=0;
-    while (fscanf(archivo2,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-           &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
-           &interes_encontrar,&activo_encontrar,&giro_encontrar)==11 ) {
-        if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion) {
-            fprintf(archivo, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar,giro_encontrar);
-            bandera=1;
-        }else {
-            fprintf(archivo, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar,giro_encontrar);
-
-        }
-
+    archivo2 = fopen("Backup.txt", "r");
+    archivo = fopen("Cuentas.txt", "w");
+    bandera = 0;
+    while (fscanf(archivo2, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
+                  &numero_cuenta_encontrar, &tipo_cuenta_encontrar, &sucursal_encontrar, nombre_encontrar, apellidos_encontrar, &rut_encontrar, &saldo_encontrar, &comision_encontrar,
+                  &interes_encontrar, &activo_encontrar, &giro_encontrar) == 11) {
+        fprintf(archivo, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
+                numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
+                saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar, giro_encontrar);
     }
 
-
-    printf("DESPOSITO-Operacion Exitosa!\nNuevo Saldo: %i",n+*deposito);
-
+    printf("DEPOSITO-Operacion Exitosa!\nNuevo Saldo: %i\n", n + *deposito);
 
     fclose(archivo);
     fclose(archivo2);
 }
 
-void retirar(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, int *estado,int *numero_cuenta, int *retiro) {
+void retirar(char *nombre, char *apellidos, int *rut, int *sucursal, int *opcion, int *estado, int *numero_cuenta, int *retiro) {
     FILE *archivo;
     FILE *archivo2;
-
-
+    int bandera=0;
     int numero_cuenta_encontrar;
     int sucursal_encontrar;
     char nombre_encontrar[50];
     char apellidos_encontrar[50];
-    int *encontrar_rut=(int *)malloc(sizeof(int)*10);
-    int bandera=0;
-
-    int rut_encontrar,tipo_cuenta_encontrar,comision_encontrar,interes_encontrar;
+    int rut_encontrar, tipo_cuenta_encontrar, comision_encontrar, interes_encontrar;
     int saldo_encontrar = 0;
     int activo_encontrar = 0;
     int giro_encontrar = 0;
-    int i=0;
+    int i = 0;
     int n;
-    archivo=fopen("Cuentas.txt","r");
-    archivo2=fopen("Backup.txt","w");
-    //----------------------RECORRE ARCHIVO 1
-    while (fscanf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-           &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
-           &interes_encontrar,&activo_encontrar,&giro_encontrar)==11) {
-        //ENCUENTRA LA CUENTA
-        if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion){
-            n=saldo_encontrar;
-            if(tipo_cuenta_encontrar == 3) {
-                if(giro_encontrar<=0) {
-                    printf("Debido a su cantidad de giros: %i (4 giros gratuitos)\nSe le cobrara 400 pesos a su sueldo\n",giro_encontrar);
-                    saldo_encontrar=saldo_encontrar-400;
+    archivo = fopen("Cuentas.txt", "r");
+    archivo2 = fopen("Backup.txt", "w");
+
+    while (fscanf(archivo, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
+                  &numero_cuenta_encontrar, &tipo_cuenta_encontrar, &sucursal_encontrar, nombre_encontrar, apellidos_encontrar, &rut_encontrar, &saldo_encontrar, &comision_encontrar,
+                  &interes_encontrar, &activo_encontrar, &giro_encontrar) == 11) {
+        if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion) {
+            n = saldo_encontrar;
+            if (tipo_cuenta_encontrar == 3) {
+                if (giro_encontrar < 0) {
+                    printf("Debido a su cantidad de giros: %i (4 giros gratuitos)\nSe le cobrara 400 pesos a su saldo\n", giro_encontrar);
+                    saldo_encontrar -= 400;
                 }
             }
             switch (*opcion) {
                 case 1:
-                    if(*retiro>saldo_encontrar) {
-                        activo_encontrar=0;
-                    }else {
-                        saldo_encontrar=saldo_encontrar-*retiro;
-                        activo_encontrar=1;
+                    if (*retiro > saldo_encontrar) {
+                        activo_encontrar = 0;
+                    } else {
+                        saldo_encontrar -= *retiro;
+                        activo_encontrar = 1;
                     }
                     break;
                 case 2:
-                    if(*retiro>50000) {
-                        activo_encontrar=0;
-                    }else {
-                        saldo_encontrar=saldo_encontrar-*retiro;
-                        activo_encontrar=1;
+                    if (*retiro > 50000) {
+                        activo_encontrar = 0;
+                    } else {
+                        saldo_encontrar -= *retiro;
+                        activo_encontrar = 1;
                     }
                     break;
                 case 3:
-                    if(*retiro<0) {
-                        activo_encontrar=0;
-                    }else {
-                        saldo_encontrar=saldo_encontrar-*retiro;
-
-                        activo_encontrar=1;
+                    if (*retiro < 0) {
+                        activo_encontrar = 0;
+                    } else {
+                        saldo_encontrar -= *retiro;
+                        activo_encontrar = 1;
                     }
                     break;
-
-
             }
             fprintf(archivo2, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar, giro_encontrar-1);
-            bandera=1;
-        }
-        //NO ENCUENTRA LA CUENTA
-        else {
+                    numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
+                    saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar, giro_encontrar - 1);
+            bandera = 1;
+        } else {
             fprintf(archivo2, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar,giro_encontrar);
-
+                    numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
+                    saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar, giro_encontrar);
         }
 
         i++;
     }
     fclose(archivo2);
     fclose(archivo);
-    archivo2=fopen("Backup.txt","r");
-    archivo=fopen("Cuentas.txt","w");
-    bandera=0;
-    while (fscanf(archivo2,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-           &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
-           &interes_encontrar,&activo_encontrar,&giro_encontrar)==11 ) {
-        if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion) {
-            fprintf(archivo, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar,giro_encontrar);
-            bandera=1;
-        }else {
-            fprintf(archivo, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-                     numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
-                     saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar,giro_encontrar);
+    archivo2 = fopen("Backup.txt", "r");
+    archivo = fopen("Cuentas.txt", "w");
 
-        }
+    while (fscanf(archivo2, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
+                  &numero_cuenta_encontrar, &tipo_cuenta_encontrar, &sucursal_encontrar, nombre_encontrar, apellidos_encontrar, &rut_encontrar, &saldo_encontrar, &comision_encontrar,
+                  &interes_encontrar, &activo_encontrar, &giro_encontrar) == 11) {
+        fprintf(archivo, "Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
+                numero_cuenta_encontrar, tipo_cuenta_encontrar, sucursal_encontrar, nombre_encontrar, apellidos_encontrar, rut_encontrar,
+                saldo_encontrar, comision_encontrar, interes_encontrar, activo_encontrar, giro_encontrar);
     }
-
 
     switch (*opcion) {
         case 1:
-            if(activo_encontrar==0) {
-                printf("Error! su retiro de: %i es mayor a su sueldo de: %i",*retiro,saldo_encontrar);
+            if (activo_encontrar == 0) {
+                printf("Error! su retiro de: %i es mayor a su saldo de: %i", *retiro, saldo_encontrar);
             }
             break;
         case 2:
-            if(activo_encontrar==0) {
-                printf("Error! su retiro de: %i tiene que ser mayor a 50 mil pesos",*retiro);
+            if (activo_encontrar == 0) {
+                printf("Error! su retiro de: %i tiene que ser menor a 50 mil pesos", *retiro);
             }
             break;
         case 3:
-            if(activo_encontrar==0) {
-                printf("Error! su retiro de: %i tiene que ser mayor sobre 0 pesos",*retiro);
+            if (activo_encontrar == 0) {
+                printf("Error! su retiro de: %i tiene que ser mayor que 0 pesos", *retiro);
             }
             break;
-
     }
 
-
-    printf("RETIRAR-Operacion Exitosa!\nNuevo Saldo: %i",n-*retiro);
+    printf("RETIRAR-Operacion Exitosa!\nNuevo Saldo: %i\n", n - *retiro);
 
     fclose(archivo);
     fclose(archivo2);
-}
-void encontrar_interes(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, int *estado,int *numero_cuenta, int *retiro) {
-    FILE *archivo;
-    int numero_cuenta_encontrar;
-    int sucursal_encontrar;
-    char nombre_encontrar[50];
-    char apellidos_encontrar[50];
-    int bandera=0;
-
-    int rut_encontrar,tipo_cuenta_encontrar,comision_encontrar,interes_encontrar;
-    int saldo_encontrar = 0;
-    int activo_encontrar = 0;
-    int giro_encontrar = 0;
-    int *interes_final=(int*)malloc(sizeof(int)*numero_cuenta_encontrar);
-    int *saldo=(int*)malloc(sizeof(int)*numero_cuenta_encontrar);
-
-    int tiempo;
-    printf("Cuanto tiempo desea ver su interes? (en meses)");
-    scanf("%i",&tiempo);
-    archivo=fopen("Cuentas.txt","r");
-    while (fscanf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-           &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
-           &interes_encontrar,&activo_encontrar,&giro_encontrar)==11) {
-        //ENCUENTRA LA CUENTA
-        if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion) {
-            *interes_final=interes_encontrar;
-            *saldo=saldo_encontrar;
-        }
-           }
-    int monto_final=*saldo*interes_encontrar+tiempo;
-    monto_final=monto_final+*saldo;
-    printf("El saldo final es: %i en %i meses",monto_final,tiempo);
 }
 
 
 //------------------------REGISTRAR CUENTA AHORRO----------
 void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal,int *opcion, int *estado,int *numero_cuenta){
-    getchar();
-    printf("Escribe tu nombre: ");
-    fgets(nombre, 50, stdin);
-    nombre[strcspn(nombre, "\n")] = '\0';
 
-    printf("Escribe tu apellido: ");
-    fgets(apellidos, 50, stdin);
-    apellidos[strcspn(apellidos, "\n")] = '\0';
-    printf("%s %s rut:%i encontrado: %i s:%i t_c: %i  n: %i",nombre,apellidos,*rut,*encontrado,*sucursal,*opcion,*numero_cuenta);
     FILE *archivo;
     Sucursal sucursal_;
 

@@ -127,12 +127,12 @@ void menu(int opcion) {
                         scanf("%i",&opcion);
                         printf("Ahora Digite las credenciales de las cuentas a transferir\n");
                         printf("Ingrese su rut:");
-                        scanf("%i",&rut2);
+                        scanf("%i",rut2);
                         datos(encontrado2,&sucursal2,nombre2,apellidos2,rut2,numero_de_cuenta2);
                         if(*encontrado2 == 1) {
                             getchar();
                             printf("Cuanto dinero desea transferir?: ");
-                            scanf("%i",&retiro);
+                            scanf("%i",retiro);
                             retirar(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,retiro);
                             *deposito = *retiro;
 
@@ -152,7 +152,23 @@ void menu(int opcion) {
                 printf("Error estimado usuario no se encuentra registrado ");
             }
             break;
-        case 4:break;
+        case 4:
+            printf("Escribe tu nombre: ");
+            fgets(nombre, 50, stdin);
+            nombre[strcspn(nombre, "\n")] = '\0';
+
+            printf("Escribe tu apellido: ");
+            fgets(apellidos, 50, stdin);
+            apellidos[strcspn(apellidos, "\n")] = '\0';
+            printf("Ingrese su rut:");
+            scanf("%i",rut);
+
+            datos(encontrado,&sucursal,nombre,apellidos,rut,numero_de_cuenta);
+            encontrar_cuenta(nombre,apellidos,rut,&sucursal,encontrado,numero_de_cuenta);
+            if (*encontrado == 1) {
+                encontrar_interes(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta);
+            }else{}
+        break;
 
     }
     free(numero_de_cuenta);
