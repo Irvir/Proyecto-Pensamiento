@@ -74,14 +74,15 @@ void menu(int opcion) {
                     scanf("%i",rut);
                     datos(encontrado,&sucursal,nombre,apellidos,rut,numero_de_cuenta);
                     if (*encontrado == 0) {
-                        printf("-----%i\n",*encontrado);
                         printf("Estimado(a) %s %s, se ha registrado la cuenta en la sucursal: %i.\n", nombre, apellidos, sucursal);
                         registrar_cuenta_sucursal(nombre,apellidos,rut,&sucursal,numero_de_cuenta);
                         ver_cuentas(decision_ver_cuenta,nombre,apellidos,encontrado,rut,&sucursal,estado,numero_de_cuenta);
-
-
                     } else {
-                        printf("ERROR! Estimado(a): %s %s, su cuenta ya esta registrado(a)\nPor lo que el programa se cerrara",nombre , apellidos, rut);
+                        printf("Estimado(a) %s %s, se ha registrado la cuenta en la sucursal: %i.\n", nombre, apellidos, sucursal);
+                        registrar_cuenta(nombre,apellidos,rut,encontrado,&sucursal,&opcion,estado,numero_de_cuenta);
+                        printf("pipi");
+                        ver_cuentas(decision_ver_cuenta,nombre,apellidos,encontrado,rut,&sucursal,estado,numero_de_cuenta);
+                        imprimir_datos_cuentas(nombre,apellidos,rut,&sucursal,&opcion,numero_de_cuenta);
 
                     }
                     break;
@@ -126,12 +127,12 @@ void menu(int opcion) {
                         scanf("%i",&opcion);
                         printf("Ahora Digite las credenciales de las cuentas a transferir\n");
                         printf("Ingrese su rut:");
-                        scanf("%i",rut2);
+                        scanf("%i",&rut2);
                         datos(encontrado2,&sucursal2,nombre2,apellidos2,rut2,numero_de_cuenta2);
                         if(*encontrado2 == 1) {
                             getchar();
                             printf("Cuanto dinero desea transferir?: ");
-                            scanf("%i",retiro);
+                            scanf("%i",&retiro);
                             retirar(nombre,apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,retiro);
                             *deposito = *retiro;
 

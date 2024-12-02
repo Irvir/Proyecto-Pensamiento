@@ -23,7 +23,7 @@ typedef struct cuenta_ahorro {
 //Cuenta Vista
 typedef struct cuenta_vista {
     int estado;
-    int numero_de_cuenta;
+    int *numero_de_cuenta;
     int saldo;
     int interes;
     int comision_mensual;
@@ -35,17 +35,13 @@ typedef struct cuenta_vista {
 typedef struct sucursales {
     char nombre[50];
     char apellidos[50];
-    int *rut;
+    int rut;
     int interes;
     int numero_de_sucursal;
     int numero_de_cuenta;
 }Sucursal;
 
 
-#include <stdio.h>
-#include "Libreria_2,_SOLO_ESTRUCTURAS.h"
-
-#define regitrar_ahorro
 int verificar_saldo(int *saldo,int tipo_de_cuenta) {
     int activo;
     switch (tipo_de_cuenta) {
@@ -132,7 +128,8 @@ int comision(int *tipo_cuenta, int *saldo) {
                 corriente.comision_mensual = comision;
             }
         break;
-        case 2:  // Cuenta Ahorro
+        case 2:
+            // Cuenta Ahorro
         case 3:  // Cuenta Vista
             if (*saldo <= 150000) {
                 comision = 10000;
@@ -380,9 +377,51 @@ void retirar(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, in
     fclose(archivo);
     fclose(archivo2);
 }
+void encontrar_interes(char *nombre,char *apellidos,int *rut,int *sucursal,int *opcion, int *estado,int *numero_cuenta, int *retiro) {
+    FILE *archivo;
+    int numero_cuenta_encontrar;
+    int sucursal_encontrar;
+    char nombre_encontrar[50];
+    char apellidos_encontrar[50];
+    int bandera=0;
+
+    int rut_encontrar,tipo_cuenta_encontrar,comision_encontrar,interes_encontrar;
+    int saldo_encontrar = 0;
+    int activo_encontrar = 0;
+    int giro_encontrar = 0;
+    int *interes_final=(int*)malloc(sizeof(int)*numero_cuenta_encontrar);
+    int *saldo=(int*)malloc(sizeof(int)*numero_cuenta_encontrar);
+
+    int tiempo;
+    printf("Cuanto tiempo desea ver su interes? (en meses)");
+    scanf("%i",&tiempo);
+    archivo=fopen("Cuentas.txt","r");
+    while (fscanf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
+           &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
+           &interes_encontrar,&activo_encontrar,&giro_encontrar)==11) {
+        //ENCUENTRA LA CUENTA
+        if (*numero_cuenta == numero_cuenta_encontrar && tipo_cuenta_encontrar == *opcion) {
+            *interes_final=interes_encontrar;
+            *saldo=saldo_encontrar;
+        }
+           }
+    int monto_final=*saldo*interes_encontrar+tiempo;
+    monto_final=monto_final+*saldo;
+    printf("El saldo final es: %i en %i meses",monto_final,tiempo);
+}
+
 
 //------------------------REGISTRAR CUENTA AHORRO----------
 void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal,int *opcion, int *estado,int *numero_cuenta){
+    getchar();
+    printf("Escribe tu nombre: ");
+    fgets(nombre, 50, stdin);
+    nombre[strcspn(nombre, "\n")] = '\0';
+
+    printf("Escribe tu apellido: ");
+    fgets(apellidos, 50, stdin);
+    apellidos[strcspn(apellidos, "\n")] = '\0';
+    printf("%s %s rut:%i encontrado: %i s:%i t_c: %i  n: %i",nombre,apellidos,*rut,*encontrado,*sucursal,*opcion,*numero_cuenta);
     FILE *archivo;
     Sucursal sucursal_;
 
@@ -422,14 +461,12 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
     }
         //-----------------------BUSCAR CUENTA DENTRO DE LA ESTRUCURA: CORRIENTE---------------------
     if(*encontrado==1) {
-        printf("entre");
         while (fscanf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
             &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
             &interes_encontrar,&activo_encontrar,giros_encontrar)==11 && bandera==0) {
             if(*numero_cuenta==numero_cuenta_encontrar && cuenta_a_encontrar==*opcion && sucursal_encontrar==*sucursal) {
                 strcpy(nombre,nombre_encontrar);
                 strcpy(apellidos,apellidos_encontrar);
-                strcpy(sucursal_.nombre,nombre);
 
                 *encontrado=1;
                 bandera=1;
@@ -438,14 +475,18 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
                 *encontrado=0;
             }
         }
+        printf("eeeeeeee");
         if(*encontrado==1 && cuenta_a_encontrar==*opcion) {
             printf("%i === %i",cuenta_a_encontrar==*opcion);
-            printf("Error !Se encuentra la Cuenta!");
+            printf("ERROR! Estimado(a): %s %s, su cuenta ya esta registrado(a)\nPor lo que el programa se cerrara",nombre , apellidos, rut);
+
+            return;
         }
 
     }
-
+    printf(".------");
     if(*encontrado==0) {
+
         printf("Cuenta No Registrada\n");
         printf("Ingresa tu saldo: \n");
         scanf("%i",saldo);
@@ -490,7 +531,7 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
                     *numero_cuenta,*opcion,*sucursal,nombre,apellidos,*rut,ahorro.saldo,ahorro.comision_mensual,ahorro.interes,ahorro.estado,ahorro.giro);
                         }
                     }else {
-                        *opcion=0;
+                        *estado=0;
                     }
                 }
                 if(verificar_saldo(saldo,2)==1) {
@@ -533,7 +574,7 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
                             *numero_cuenta,*opcion,*sucursal,nombre,apellidos,*rut,vista.saldo,vista.comision_mensual,vista.interes,vista.estado,vista.giro);
                         }
                     }else {
-                        *opcion=0;
+                        *estado=0;
                     }
                 }
                 if(verificar_saldo(saldo,3)==1) {
@@ -562,7 +603,7 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
 
 //------------------------ENCONTRAR CUENTA EN GENERAL----------
 void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *encontrado,int *numero_Cuenta) {
-
+    Sucursal s;
     FILE *archivo;
     switch (*sucursal) {
         case 1:
@@ -615,13 +656,14 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
     int rut_encontrar, cuenta_encontrar;
 
     *encontrado=0;
-
+    s.numero_de_cuenta=*numero_Cuenta;
+    s.rut=*rut;
     int bandera=0;
     if(archivo!=NULL) {
         char nombre_encontrar[50], apellidos_encontrar[50];
         while (fscanf(archivo, "Cuenta: %i Nombre: %s Apellidos: %s Rut: %i\n",
                   &cuenta_encontrar, nombre_encontrar, apellidos_encontrar, &rut_encontrar) == 4 && bandera==0) {
-            if ( *numero_Cuenta == cuenta_encontrar && *rut==rut_encontrar) {
+            if ( s.numero_de_cuenta == cuenta_encontrar && s.rut==rut_encontrar) {
                 *encontrado = 1;
                 *numero_Cuenta = cuenta_encontrar;
                 bandera=1;
@@ -801,7 +843,6 @@ void imprimir_datos_cuentas(char *nombre, char *apellidos,int *rut,int *sucursal
 
 
 void datos(int *encontrado,int *sucursal,char *nombre, char *apellidos,int  *rut, int *numero_Cuenta) {
-
     printf("Escriba su Numero de Cuenta: ");
     scanf("%i",numero_Cuenta);
     printf("Ingrese su sucursal (1-5): ");

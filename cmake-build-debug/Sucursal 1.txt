@@ -5,3 +5,10 @@ Cuenta: 10 Nombre: mak Apellidos: ke Rut: 10
 Cuenta: 1 Nombre: ma Apellidos: l Rut: 22
 Cuenta: 2 Nombre: mk Apellidos: lk Rut: 30
 Cuenta: 2 Nombre: mk Apellidos: mk Rut: 99
+Cuenta: 12 Nombre: po Apellidos: po Rut: 569071968
+Cuenta: 177 Nombre: mo Apellidos: po Rut: 198
+Cuenta: 177 Nombre: mk Apellidos: mo Rut: 198
+Cuenta: 177 Nombre: mk Apellidos: po Rut: 198
+Cuenta: 29 Nombre: popo Apellidos: po Rut: 28
+Cuenta: 211 Nombre: ma Apellidos: po Rut: 222
+Cuenta: 2019 Nombre: pep Apellidos: p Rut: 2020
