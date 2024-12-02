@@ -14,3 +14,4 @@ Cuenta: 211 Nombre: ma Apellidos: po Rut: 222
 Cuenta: 2019 Nombre: pep Apellidos: p Rut: 2020
 Cuenta: 99 Nombre: owo Apellidos: owo Rut: 99
 Cuenta: 100 Nombre: uwu Apellidos: uwu Rut: 100
+Cuenta: 30 Nombre: ma Apellidos: ma Rut: 30

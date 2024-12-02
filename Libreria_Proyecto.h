@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "Libreria_2,_SOLO_ESTRUCTURAS.h"
 //Cuenta Corriente
 typedef struct cuenta_corriente {
     int numero_de_cuenta;
@@ -402,7 +401,6 @@ void retirar(char *nombre, char *apellidos, int *rut, int *sucursal, int *opcion
 }
 
 
-//------------------------REGISTRAR CUENTA AHORRO----------
 void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int *sucursal,int *opcion, int *estado,int *numero_cuenta){
 
     FILE *archivo;
@@ -442,23 +440,36 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
             cuenta_a_encontrar=3;
             break;
     }
+    int contador_rut=0;
+    int contador_n_cuenta=0;
         //-----------------------BUSCAR CUENTA DENTRO DE LA ESTRUCURA: CORRIENTE---------------------
     if(*encontrado==1) {
         while (fscanf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
             &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
             &interes_encontrar,&activo_encontrar,giros_encontrar)==11 && bandera==0) {
+            if(numero_cuenta_encontrar==*numero_cuenta || rut_encontrar==*rut) {
+                contador_n_cuenta++;
+                contador_rut++;
+                if(contador_n_cuenta>1 || contador_rut>1) {
+                    printf("Lamentablemente su rut o su numero de cuenta ya están registrados, intenta con otro rut");
+                    bandera=1;
+                    *encontrado=1;
+                }
+            }
             if(*numero_cuenta==numero_cuenta_encontrar && cuenta_a_encontrar==*opcion && sucursal_encontrar==*sucursal) {
                 strcpy(nombre,nombre_encontrar);
                 strcpy(apellidos,apellidos_encontrar);
 
                 *encontrado=1;
                 bandera=1;
-            }else {
-                printf("%i==%i||%i==%i||%i==%i",*numero_cuenta,numero_cuenta_encontrar,cuenta_a_encontrar,*opcion,sucursal_encontrar,*sucursal);
+            }
+
+
+            else {
                 *encontrado=0;
             }
+
         }
-        printf("eeeeeeee");
         if(*encontrado==1 && cuenta_a_encontrar==*opcion) {
             printf("%i === %i",cuenta_a_encontrar==*opcion);
             printf("ERROR! Estimado(a): %s %s, su cuenta ya esta registrado(a)\nPor lo que el programa se cerrara",nombre , apellidos, rut);
@@ -467,7 +478,6 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
         }
 
     }
-    printf(".------");
     if(*encontrado==0) {
 
         printf("Cuenta No Registrada\n");
@@ -641,17 +651,31 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
     *encontrado=0;
     s.numero_de_cuenta=*numero_Cuenta;
     s.rut=*rut;
+    int contador_n_cuenta=0;
+    int contador_rut=0;
     int bandera=0;
     if(archivo!=NULL) {
         char nombre_encontrar[50], apellidos_encontrar[50];
         while (fscanf(archivo, "Cuenta: %i Nombre: %s Apellidos: %s Rut: %i\n",
                   &cuenta_encontrar, nombre_encontrar, apellidos_encontrar, &rut_encontrar) == 4 && bandera==0) {
+            if(s.numero_de_cuenta==*numero_Cuenta || rut_encontrar==*rut) {
+                contador_n_cuenta++;
+                contador_rut++;
+                if(contador_n_cuenta>1 || contador_rut>1) {
+                    printf("Lamentablemente su rut o su numero de cuenta ya estan registrados, intenta con otro rut\n");
+                    bandera=1;
+                    *encontrado=1;
+                }
+            }
             if ( s.numero_de_cuenta == cuenta_encontrar && s.rut==rut_encontrar) {
+                strcpy(nombre_encontrar,nombre);
+                strcpy(apellidos_encontrar,apellidos);
                 *encontrado = 1;
                 *numero_Cuenta = cuenta_encontrar;
                 bandera=1;
                 break;
                 }
+
         }
 
     }

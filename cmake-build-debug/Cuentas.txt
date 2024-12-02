@@ -4,3 +4,4 @@ Cuenta: 211 Tipo_Cuenta: 3 Sucursal: 1 Nombre: po Apellidos: po Rut: 222 Saldo: 
 Cuenta: 99 Tipo_Cuenta: 1 Sucursal: 1 Nombre: owo Apellidos: owo Rut: 99 Saldo: 30000 Comision: 10000 Interes: 5 Estado: 1 Giros: -1
 Cuenta: 100 Tipo_Cuenta: 1 Sucursal: 1 Nombre: uwu Apellidos: uwu Rut: 100 Saldo: 30000 Comision: 10000 Interes: 5 Estado: 1 Giros: -1
 Cuenta: 3 Tipo_Cuenta: 1 Sucursal: 2 Nombre: uwu Apellidos: uwu Rut: 3 Saldo: 29700 Comision: 10000 Interes: 5 Estado: 1 Giros: -2
+Cuenta: 30 Tipo_Cuenta: 1 Sucursal: 1 Nombre: ma Apellidos: ma Rut: 30 Saldo: 30000 Comision: 10000 Interes: 5 Estado: 1 Giros: -1
