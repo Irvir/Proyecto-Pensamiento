@@ -1,0 +1,1 @@
+Cuenta: 22 Tipo_Cuenta: 1 Sucursal: 1 Nombre: Martin Apellidos: Droguett Tondro Rut: 22027050 Saldo: 30000 Comision: 10000 Interes: 5 Estado: 1 Giros: -1

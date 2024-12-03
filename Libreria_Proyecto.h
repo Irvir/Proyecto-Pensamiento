@@ -468,32 +468,31 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
     int contador_rut=0;
     int contador_n_cuenta=0;
     if(*encontrado==1) {
+        *encontrado=0;
         while (fscanf(archivo,"Cuenta: %i Tipo_Cuenta: %i Sucursal: %i Nombre: %s Apellidos: %s Rut: %i Saldo: %i Comision: %i Interes: %i Estado: %i Giros: %i\n",
-            &numero_cuenta_encontrar,&tipo_cuenta_encontrar,&sucursal_encontrar,nombre_encontrar,apellidos_encontrar,&rut_encontrar,&saldo_encontrar,&comision_encontrar,
-            &interes_encontrar,&activo_encontrar,giros_encontrar)==11 && bandera==0) {
-            if(numero_cuenta_encontrar==*numero_cuenta || rut_encontrar==*rut) {
+              &numero_cuenta_encontrar, &tipo_cuenta_encontrar, &sucursal_encontrar, nombre_encontrar, apellidos_encontrar,
+              &rut_encontrar, &saldo_encontrar, &comision_encontrar, &interes_encontrar, &activo_encontrar, giros_encontrar) == 11 && bandera == 0) {
+            if (numero_cuenta_encontrar == *numero_cuenta || rut_encontrar == *rut) {
                 contador_n_cuenta++;
                 contador_rut++;
-                if(contador_n_cuenta>1 || contador_rut>1) {
+                if (contador_n_cuenta > 1 || contador_rut > 1) {
                     printf("Lamentablemente su rut o su numero de cuenta ya están registrados, intenta con otro rut");
-                    bandera=1;
-                    *encontrado=1;
+                    bandera = 1;
+                    *encontrado = 1;
                 }
             }
-            if(*numero_cuenta==numero_cuenta_encontrar && cuenta_a_encontrar==*opcion && sucursal_encontrar==*sucursal) {
-                strcpy(nombre,nombre_encontrar);
-                strcpy(apellidos,apellidos_encontrar);
-                *encontrado=1;
-                bandera=1;
+            if (*numero_cuenta == numero_cuenta_encontrar && cuenta_a_encontrar == *opcion && sucursal_encontrar == *sucursal) {
+                strcpy(nombre, nombre_encontrar);
+                strcpy(apellidos, apellidos_encontrar);
+                *encontrado = 1;
+                bandera = 1;
+            } else {
+                *encontrado = 0;
             }
-            else {
-                *encontrado=0;
-            }
-        }
-        if(*encontrado==1 && cuenta_a_encontrar==*opcion) {
-            printf("%i === %i",cuenta_a_encontrar==*opcion);
-            printf("ERROR! Estimado(a): %s %s, su cuenta ya esta registrado(a)\nPor lo que el programa se cerrara",nombre , apellidos, rut);
+              }
 
+        if(*encontrado==1) {
+            printf("ERROR! Estimado(a): %s %s, su cuenta ya esta registrado(a)\nPor lo que el programa se cerrara",nombre , apellidos, rut);
             return;
         }
 
@@ -503,6 +502,8 @@ void registrar_cuenta(char *nombre,char *apellidos,int *rut,int *encontrado,int 
         printf("Cuenta No Registrada\n");
         printf("Ingresa tu saldo: \n");
         scanf("%i",saldo);
+        printf("1. Ver Cuenta Corriente\n2. Ver Cuenta Ahorro\n3. Ver Cuenta Vista\nOpcion: ");
+        scanf("%i",opcion);
         switch (*opcion) {
             case 1:
                 if(verificar_saldo(saldo,1)==1) {
@@ -624,7 +625,7 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
                 *encontrado=0;
                 fclose(archivo);
             }
-            break;
+        break;
         case 2:
             printf("Encargado(a): Jimmy Barrera\n");
             archivo = fopen("Sucursal 2.txt","r");
@@ -633,7 +634,7 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
                 *encontrado=0;
                 fclose(archivo);
             }
-            break;
+        break;
         case 3:
             printf("Encargado(a): Juana Ashe\n");
             archivo = fopen("Sucursal 3.txt","r");
@@ -642,7 +643,7 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
                 *encontrado=0;
                 fclose(archivo);
             }
-            break;
+        break;
         case 4:
             printf("Encargado(a): Maria Alarcon\n");
             archivo = fopen("Sucursal 4.txt","r");
@@ -651,16 +652,16 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
                 *encontrado=0;
                 fclose(archivo);
             }
-            break;
+        break;
         case 5:
             printf("Encargado(a): Ester Castillo\n");
-            archivo = fopen("Sucursal 5.txt","r");
-            if(archivo==NULL) {
-                archivo=fopen("Sucursal 5.txt","w");
-                *encontrado=0;
-                fclose(archivo);
-            }
-            break;
+        archivo = fopen("Sucursal 5.txt","r");
+        if(archivo==NULL) {
+            archivo=fopen("Sucursal 5.txt","w");
+            *encontrado=0;
+            fclose(archivo);
+        }
+        break;
     }
     //EN CASO PARA ENCONTRAR
     int rut_encontrar, cuenta_encontrar;
@@ -671,35 +672,33 @@ void encontrar_cuenta(char *nombre, char *apellidos,int *rut,int *sucursal,int *
     int contador_rut=0;
     int bandera=0;
     char nombre_encontrar[50], apellidos_encontrar[50];
-    if(archivo!=NULL) {
+    while (fscanf(archivo, "Cuenta: %i Nombre: \"%49[^\"]\" Apellidos: \"%49[^\"]\" Rut: %i\n",
+               &cuenta_encontrar, nombre_encontrar, apellidos_encontrar, &rut_encontrar) == 4) {
 
-        while (fscanf(archivo, "Cuenta: %i Nombre: %s Apellidos: %s Rut: %i\n",
-                  &cuenta_encontrar, nombre_encontrar, apellidos_encontrar, &rut_encontrar) == 4 && bandera==0) {
-            if(cuenta_encontrar==*numero_Cuenta || rut_encontrar==*rut) {
-                contador_n_cuenta++;
-                contador_rut++;
-                if(contador_n_cuenta>1 || contador_rut>1) {
-                    printf("cuenta:%i -- rut: %i",contador_n_cuenta,contador_rut);
-                    printf("Lamentablemente su rut o su numero de cuenta ya estan registrados, intenta con otro rut\n");
-                    bandera=1;
-                    *encontrado=0;
-                }
-            }
-            if ( s.numero_de_cuenta == cuenta_encontrar && s.rut==rut_encontrar) {
-                strcpy(nombre_encontrar,nombre);
-                strcpy(apellidos_encontrar,apellidos);
-                *encontrado = 1;
-                *numero_Cuenta = cuenta_encontrar;
-                bandera=1;
-                break;
-                }
+        if (cuenta_encontrar == *numero_Cuenta) {
+            contador_n_cuenta++;
+        }
+        if (rut_encontrar == *rut) {
+            contador_rut++;
+        }
+
+        if (contador_n_cuenta > 1 || contador_rut > 1) {
+            printf("Lamentablemente su rut o número de cuenta ya están registrados. Intente con otro rut.\n");
+            bandera = 1;
+            *encontrado = 1;
+        }
+
+        if (s.numero_de_cuenta == cuenta_encontrar && s.rut == rut_encontrar) {
+            strcpy(nombre, nombre_encontrar);
+            strcpy(apellidos, apellidos_encontrar);
+            *encontrado = 1;
+            *numero_Cuenta = cuenta_encontrar;
+            bandera = 1;
+            break;
         }
     }
+               }
 
-    *rut=rut_encontrar;
-
-    fclose(archivo);
-}
 void mensaje_bienvenido(char *nombre, char *apellidos,int *rut,int *sucursal,int *numero_Cuenta) {
     FILE *archivo;
 
@@ -763,14 +762,14 @@ void registrar_cuenta_sucursal(char nombre[], char apellidos[], int *rut,int *su
             break;
     }
     getchar();
+
     printf("Escribe tu nombre: ");
     fgets(nombre, 50, stdin);
     nombre[strcspn(nombre, "\n")] = '\0';
     printf("Escribe tu apellido: ");
     fgets(apellidos, 50, stdin);
     apellidos[strcspn(apellidos, "\n")] = '\0';
-    fprintf(archivo,"Cuenta: %i Nombre: %s Apellidos: %s Rut: %i\n",*numero_Cuenta,nombre,apellidos,*rut);
-
+    fprintf(archivo, "Cuenta: %i Nombre: \"%s\" Apellidos: \"%s\" Rut: %i\n", *numero_Cuenta, nombre, apellidos, *rut);
     fclose(archivo);
 
 }

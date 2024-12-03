@@ -76,8 +76,6 @@ void menu(int opcion) {
                     } else {
                         printf("Estimado(a) %s %s, se ha registrado la cuenta en la sucursal: %i.\n", s.nombre, s.apellidos, sucursal);
                         registrar_cuenta(s.nombre,s.apellidos,rut,encontrado,&sucursal,&opcion,estado,numero_de_cuenta);
-                        printf("pipi");
-                        ver_cuentas(decision_ver_cuenta,s.nombre,s.apellidos,encontrado,rut,&sucursal,estado,numero_de_cuenta);
                         imprimir_datos_cuentas(s.nombre,s.apellidos,rut,&sucursal,&opcion,numero_de_cuenta);
 
                     }
