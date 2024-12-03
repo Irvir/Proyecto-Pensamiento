@@ -1,3 +1,0 @@
-Cuenta: 3 Nombre: ma Apellidos: me Rut: 3
-Cuenta: 2 Nombre: ma Apellidos: me Rut: 22
-Cuenta: 18 Nombre: mk Apellidos: po Rut: -656582304

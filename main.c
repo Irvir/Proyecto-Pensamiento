@@ -32,12 +32,10 @@ void menu(int opcion) {
     getchar();
     switch (opcion) {
         case 1:
-
             printf("Ingrese su rut:");
             scanf("%i",rut);
             datos(encontrado,&sucursal,s.nombre,s.apellidos,rut,numero_de_cuenta);
             encontrar_cuenta(s.nombre,s.apellidos,rut,&sucursal,encontrado,numero_de_cuenta);
-
             if (*encontrado == 0) {
                 printf("Estimado(a) Cliente su cuenta no se encuentra registrada en la Sucursal: %i.\n",sucursal);
             } else {
@@ -47,7 +45,7 @@ void menu(int opcion) {
             }
             break;
         case 2:
-            printf("Decida que cuenta desea crear:\n1.Cuenta Sucursal\n2.Cuentas: Ahorro-Corriente-Vista"
+            printf("Decida que cuenta desea crear:\n1.Cuenta Sucursal\n2.Cuentas: Corriente-Ahorro-Vista"
                    "\nOpcion:");
             scanf("%i", &opcion);
             getchar();
@@ -64,7 +62,7 @@ void menu(int opcion) {
 
                     } else {
 
-                        printf("Error! Estimado(a): %s %s (Rut: %i), su cuenta ya está registrada\n",s.nombre , s.apellidos, *rut);
+                        printf("Error! Estimado(a), su cuenta ya esta registrada\n");
                     }
                     break;
                 case 2:
@@ -132,13 +130,16 @@ void menu(int opcion) {
                             printf("Cuanto dinero desea transferir?: ");
                             scanf("%i",retiro);
                             retirar(s.nombre,s.apellidos,rut,&sucursal,&opcion,estado,numero_de_cuenta,retiro);
-                            *deposito = *retiro;
+                            if(*estado==0) {
+                                printf("\nLastimosamente no se puede realizar la operacion");
+                                return;
+                            }else {
+                                *deposito = *retiro;
+                                depositar(s2.nombre,s2.apellidos,rut2,&sucursal2,&opcion,estado,numero_de_cuenta2,deposito);
+                            }
 
-                            depositar(s2.nombre,s2.apellidos,rut2,&sucursal2,&opcion,estado,numero_de_cuenta2,deposito);
                         }else {
-                            printf("%i--",*encontrado2);
-
-                            printf("No se encontro");
+                            printf("La cuenta no se encontro");
                         }
 
 
